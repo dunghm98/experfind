@@ -148,3 +148,11 @@ Route::get('specialities/get-all', 'SpecialityController@getAll')
     ->name('specialities.getAll');
 Route::get('specialities/get-list', 'SpecialityController@getList')
     ->name('specialities.getList');
+
+
+
+
+/** Search Controller */
+
+Route::post('/suggest-search', 'SeachController@searchFullText')->name('search');
+Route::get('/search/tutor/location/{location}/subject/{subject}','SeachController@searchTutor')->name('search.tutor');

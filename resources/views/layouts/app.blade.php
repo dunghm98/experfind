@@ -158,7 +158,7 @@
                                 </div>
                                 @can('view', auth()->user()->student)
                                     <a class="dropdown-item" href="{{ route('student.dashboard') }}">Dashboard</a>
-                                    <a class="dropdown-item" href="{{ route('students.viewProfile') }}">Profile Settings</a>
+                                    <a class="dropdown-item" href="{{ route('students.getProfile') }}">Profile Settings</a>
                                 @endcan
                                 @can('view', auth()->user()->tutor)
                                     <a class="dropdown-item" href="{{ route('tutor.dashboard') }}">Dashboard</a>

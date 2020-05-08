@@ -20,7 +20,7 @@
                     <div class="profile-widget">
                         <div class="doc-img">
                             <a href="{{route('tutor-profile',$tutor->id)}}">
-                                <img class="img-fluid" alt="User Image" src="{{asset('storage/'. $tutor->user->avatar)}}">
+                                <img class="img-fluid" alt="User Image" src="{{asset($tutor->user->avatar ? 'storage/'. $tutor->user->avatar : ($tutor->user->gender == 1 ? 'img/tutors/avatars/default-boy.png':'img/tutors/avatars/default-girl.png' ))}}">
                             </a>
                             <a href="javascript:void(0)" class="fav-btn">
                                 <i class="far fa-bookmark"></i>

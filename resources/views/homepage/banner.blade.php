@@ -9,7 +9,7 @@
 
             <!-- Search -->
             <div class="search-box">
-                <form id="header-search" method="post">
+                <form id="header-search" method="get" action="{{ route('home.search') }}">
                     <div class="form-group search-location">
                         <input type="text" name="location" class="form-control m-input" placeholder="Địa điểm">
                         <span class="form-text">Tìm theo vị trí của bạn</span>

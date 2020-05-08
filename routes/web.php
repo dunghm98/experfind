@@ -156,3 +156,39 @@ Route::get('specialities/get-list', 'SpecialityController@getList')
 
 Route::post('/suggest-search', 'SeachController@searchFullText')->name('search');
 Route::get('/search/tutor/location/{location}/subject/{subject}','SeachController@searchTutor')->name('search.tutor');
+Route::get('/filter-search', 'SearchController@filterByLocation')->name('home.search');
+
+
+
+//Admin
+Route::get('/admin/dashboard', 'AdminController@showDashBoard')->name('showDashBoard');
+
+Route::get('/admin/cities', 'AdminController@showCities')->name('showCities');
+Route::get('/admin/city/{city}', 'AdminController@editCity')->name('editCity');
+Route::post('/admin/city/save', 'AdminController@saveCity')->name('saveCity');
+Route::get('/admin/add-city', 'AdminController@createCity')->name('createCity');
+Route::post('/admin/city', 'AdminController@storeCity')->name('storeCity');
+Route::get('/admin/city/delete/{city}', 'AdminController@deleteCity')->name('deleteCity');
+
+Route::get('/admin/districts', 'AdminController@showDistricts')->name('showDistricts');
+Route::get('/admin/district/{district}', 'AdminController@editDistrict')->name('editDistrict');
+Route::post('/admin/district/save', 'AdminController@saveDistrict')->name('saveDistrict');
+Route::get('/admin/add-district', 'AdminController@createDistrict')->name('createDistrict');
+Route::post('/admin/district', 'AdminController@storeDistrict')->name('storeDistrict');
+Route::get('/admin/district/delete/{district}', 'AdminController@deleteDistrict')->name('deleteDistrict');
+
+
+Route::get('/admin/specialities', 'AdminController@showSpecialities')->name('showSpecialities');
+Route::get('/admin/speciality/{speciality}', 'AdminController@editSpeciality')->name('editSpeciality');
+Route::post('/admin/speciality/save', 'AdminController@saveSpeciality')->name('saveSpeciality');
+Route::get('/admin/add-speciality', 'AdminController@createSpeciality')->name('createSpeciality');
+Route::post('/admin/speciality', 'AdminController@storeSpeciality')->name('storeSpeciality');
+Route::get('/admin/speciality/delete/{speciality}', 'AdminController@deleteSpeciality')->name('deleteSpeciality');
+
+
+Route::get('/admin/subjects', 'AdminController@showSubjects')->name('showSubjects');
+Route::get('/admin/subject/{subject}', 'AdminController@editSubject')->name('editSubject');
+Route::post('/admin/subject/save', 'AdminController@saveSubject')->name('saveSubject');
+Route::get('/admin/add-subject', 'AdminController@createSubject')->name('createSubject');
+Route::post('/admin/subject', 'AdminController@storeSubject')->name('storeSubject');
+Route::get('/admin/subject/delete/{subject}', 'AdminController@deleteSubject')->name('deleteSubject');

@@ -15,7 +15,7 @@
                             <li class="breadcrumb-item active" aria-current="page">Search</li>
                         </ol>
                     </nav>
-                    <h2 class="breadcrumb-title">2245 kết quả cho : {{$speciality->name ?? ''}}</h2>
+                    <h2 class="breadcrumb-title">{{$count ?? ''}} kết quả cho : {{$filterString ?? ''}}</h2>
                 </div>
                 <div class="col-md-4 col-12 d-md-block d-none">
                     <div class="sort-by">

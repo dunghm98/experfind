@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="dash-widget-info">
-                                <h6 class="text-muted">Lộ Trình</h6>
+                                <h6 class="text-muted">Thành Phố</h6>
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-primary w-50"></div>
                                 </div>
@@ -53,7 +53,7 @@
                             </div>
                             <div class="dash-widget-info">
 
-                                <h6 class="text-muted">Khoá Học</h6>
+                                <h6 class="text-muted">Quận huyện</h6>
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-success w-50"></div>
                                 </div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="dash-widget-info">
 
-                                <h6 class="text-muted">Bài Học</h6>
+                                <h6 class="text-muted">Chuyên môn</h6>
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-danger w-50"></div>
                                 </div>
@@ -95,7 +95,7 @@
                             </div>
                             <div class="dash-widget-info">
 
-                                <h6 class="text-muted">User</h6>
+                                <h6 class="text-muted">Môn học</h6>
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-warning w-50"></div>
                                 </div>

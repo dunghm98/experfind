@@ -41,7 +41,7 @@
                     <!-- Logo -->
                     <div class="header-left">
                         <a href="{{route('showDashBoard')}}" class="logo">
-                            <img src="assets/img/beer.png" alt="Logo">
+                            <img src="{{ asset('img/experfind.png') }}" alt="Logo">
                         </a>
                         <a href="{{route('showDashBoard')}}" class="logo logo-small">
                             <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
@@ -153,7 +153,7 @@
                                         <img src="assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
                                     </div>
                                     <div class="user-text">
-                                        <h6>{{auth()->user()->name}}</h6>
+{{--                                        <h6>{{auth()->user()->name}}</h6>--}}
                                         <p class="text-muted mb-0">Administrator</p>
                                     </div>
                                 </div>

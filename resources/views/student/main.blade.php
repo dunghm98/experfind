@@ -19,6 +19,9 @@
                             <a class="nav-link active" href="#pat_appointments" data-toggle="tab">Gia sư nhận dạy</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#pat_appointments_next" data-toggle="tab">Các lớp mời gia sư dạy</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#pat_prescriptions" data-toggle="tab">Các lớp đã đăng</a>
                         </li>
                     </ul>
@@ -80,6 +83,67 @@
                                                         </td>
                                                     </tr>
                                                     @endif
+                                            @endforeach
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Appointment Tab -->
+                    <!-- Appointment Tab -->
+                    <div id="pat_appointments_next" class="tab-pane fade show">
+                        <div class="message-box"></div>
+                        <div class="card card-table mb-0">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-center mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th>Gia sư</th>
+                                            <th>Nhận lớp</th>
+                                            <th>Status</th>
+                                            <th class="text-right">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($student->requests as $request)
+                                            @foreach($request->tutors as $key => $tutorApply)
+                                                @if($tutorApply->pivot->sender == 0 )
+                                                    <tr class="request-cont" id="request-{{$key}}"  data-tutor="{{$tutorApply->id}}" data-request="{{ $request->id }}">
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="{{route('tutor-profile',$tutorApply->id)}}" class="avatar avatar-sm mr-2">
+                                                                    <img class="avatar-img rounded-circle" src="{{asset($tutorApply->user->avatar ? 'storage/'. $tutorApply->user->avatar : ($tutorApply->user->gender == 1 ? 'img/tutors/avatars/default-boy.png':'img/tutors/avatars/default-girl.png' ))}}" alt="User Image">
+                                                                </a>
+                                                                <a href="{{route('tutor-profile',$tutorApply->id)}}">{{$tutorApply->user->name}} <span>Sinh vien</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>
+                                                            {{$request->short_description}}
+                                                        </td>
+                                                        @if($request->status == 3 && $tutorApply->pivot->status == 3)
+                                                            <td><span class="badge badge-pill bg-primary-light">Đã nhận dạy</span></td>
+                                                        @endif
+                                                        @if($tutorApply->pivot->status == 2)
+                                                            <td><span class="badge badge-pill bg-danger-light">Đã từ chối</span></td>
+                                                        @endif
+                                                        @if($request->status !== 1 && $tutorApply->pivot->status == 0)
+                                                            <td><span class="badge badge-pill bg-primary-light">Đang đợi xác nhận</span></td>
+                                                        @endif
+                                                        <td class="text-right">
+                                                            <div class="table-action">
+                                                                <a href="#" class="btn btn-sm bg-success-light btn-accept">
+                                                                    <i class="fas fa-check"></i> Chấp nhận
+                                                                </a>
+                                                                <a href="#" class="btn btn-sm bg-danger-light btn-decline">
+                                                                    <i class="fas fa-times"></i> Hủy
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                             @endforeach
                                         @endforeach
                                         </tbody>

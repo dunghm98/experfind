@@ -316,9 +316,9 @@ class TutorController extends Controller
                 return request()->ajax() ?
                     response()->json([
                         'status' => 500,
-                        'message' => 'Bạn đã hủy yêu cầu này rồi mà'
+                        'message' => 'Yêu cầu này đã bị hủy rồi'
                     ]) :
-                    'Bạn đã hủy yêu cầu này rồi mà';
+                    'Yêu cầu này đã bị hủy rồi';
             }
             return request()->ajax() ?
                 response()->json([

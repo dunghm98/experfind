@@ -174,10 +174,6 @@
                                                             <a href="{{route('request.detail', $studentRequest->id)}}" class="btn btn-sm bg-info-light">
                                                                 <i class="far fa-eye"></i> Xem
                                                             </a>
-
-                                                            <a href="#" class="btn btn-sm bg-success-light btn-accept">
-                                                                <i class="fas fa-check"></i> Chấp nhận
-                                                            </a>
                                                             <a href="#" class="btn btn-sm bg-danger-light btn-decline">
                                                                 <i class="fas fa-times"></i> Hủy
                                                             </a>

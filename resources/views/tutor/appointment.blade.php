@@ -34,7 +34,7 @@
                         </div>
                         @if($studentRequest->pivot->status == 2 )
                             <button class="btn btn-sm bg-warning-light cursor-default">
-                                <i class="fas fa-times"></i> Bạn đã hủy yêu cầu này rồi
+                                <i class="fas fa-times"></i> Yêu cầu này đã bị hủy
                             </button>
                         @endif
                         @if($studentRequest->pivot->status == 3 )

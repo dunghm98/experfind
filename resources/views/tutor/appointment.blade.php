@@ -10,7 +10,7 @@
         <div class="appointments">
             <div class="message-box"></div>
         @foreach($tutor->requests as $key => $studentRequest)
-            @if($studentRequest->pivot->sender == 0 )
+            @if(1)
             <!-- Appointment List -->
             <div class="appointment-list request-cont" id="request-{{$key}}"  data-tutor="{{$tutor->id}}" data-request="{{ $studentRequest->id }}">
                 <div class="profile-info-widget">
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="profile-det-info ml-3 border-left pl-3 request-detail-cont">
-                        <h3><a href="{{route('students.viewProfile', $studentRequest->id)}}">{{$studentRequest->short_description }}</a></h3>
+                        <h3><a href="{{route('request.detail', $studentRequest->id)}}">{{$studentRequest->short_description }}</a></h3>
                         <div class="patient-details">
                             <h5 class="mb-3 mt-2"><i class="far fa-comment-alt"></i><p class="d-inline-block">Nội dung: {{ $studentRequest->description}}</p></h5>
                             <h5><i class="fas fa-map-marker-alt"></i>Vị trí: {{$studentRequest->city->name ?? ''}}</h5>

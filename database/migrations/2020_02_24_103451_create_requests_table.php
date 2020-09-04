@@ -34,6 +34,17 @@ class CreateRequestsTable extends Migration
             $table->tinyInteger('tutor_gender')->default(3);
             $table->tinyInteger('type_of_tutor')->default(3);
             $table->tinyInteger('number_of_student')->default(1);
+            $table->unsignedSmallInteger('city_id')->nullable();
+            $table->foreign('city_id')->references('id')
+                ->on('cities')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->unsignedSmallInteger('district_id')->nullable();
+            $table->foreign('district_id')->references('id')
+                ->on('districts')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

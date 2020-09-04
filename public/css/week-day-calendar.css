@@ -73,3 +73,7 @@ ul.custom-checkbox li input[type="checkbox"]:focus + label {
     margin: auto;
     margin-bottom: 15px;
 }
+
+.view-only {
+    pointer-events: none;
+}

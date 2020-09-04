@@ -104,4 +104,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(District::class);
     }
+
+    public function getAge()
+    {
+        return 2020-getYear($this->dob);
+    }
 }

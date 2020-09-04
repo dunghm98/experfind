@@ -2,180 +2,155 @@
 @section('dashboard-content')
 
     <div class="col-md-7 col-lg-8 col-xl-9">
-
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Schedule Timings</h4>
-                        <div class="profile-box">
-                            <div class="row">
-
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label>Timing Slot Duration</label>
-                                        <select class="select form-control">
-                                            <option>-</option>
-                                            <option>15 mins</option>
-                                            <option selected="selected">30 mins</option>
-                                            <option>45 mins</option>
-                                            <option>1 Hour</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
+        <form action="{{ route('tutor.updateSchedule') }}" method="post" id="form" enctype="multipart/form-data">
+            @method('PATCH')
+            @csrf
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Thời gian có thể dạy của bạn</h4>
+                            <br>
+                            <div class="row form-row justify-content-center">
                                 <div class="col-md-12">
-                                    <div class="card schedule-widget mb-0">
-
-                                        <!-- Schedule Header -->
-                                        <div class="schedule-header">
-
-                                            <!-- Schedule Nav -->
-                                            <div class="schedule-nav">
-                                                <ul class="nav nav-tabs nav-justified">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#slot_sunday">Sunday</a>
+                                    <div class="form-group">
+                                        <div class="weekday-calendar schedule">
+                                            <div class="day-of-week mon">
+                                                <button type="button" value="mon" class="btn btn-secondary">Thứ 2</button>
+                                                <ul class="custom-checkbox">
+                                                    <li>
+                                                        <input name="schedule[mon][]" type="checkbox" id="morning-2" value="morning"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('mon','morning')==true ? 'checked' : ''}}>
+                                                        <label for="morning-2">Sáng</label>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" data-toggle="tab" href="#slot_monday">Monday</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#slot_tuesday">Tuesday</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#slot_wednesday">Wednesday</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#slot_thursday">Thursday</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#slot_friday">Friday</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#slot_saturday">Saturday</a>
-                                                    </li>
+                                                    <li>
+                                                        <input name="schedule[mon][]" type="checkbox" id="afternoon-2" value="afternoon"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('mon','afternoon')==true ? 'checked' : ''}}>
+                                                        <label for="afternoon-2">Chiều</label></li>
+                                                    <li>
+                                                        <input name="schedule[mon][]" type="checkbox" id="evening-2" value="evening"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('mon','evening')==true ? 'checked' : ''}}>
+                                                        <label for="evening-2">Tối</label></li>
                                                 </ul>
                                             </div>
-                                            <!-- /Schedule Nav -->
-
+                                            <div class="day-of-week tue">
+                                                <button type="button" value="tue" class="btn btn-secondary">Thứ 3</button>
+                                                <ul class="custom-checkbox">
+                                                    <li>
+                                                        <input name="schedule[tue][]" type="checkbox" id="morning-3" value="morning"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('tue','morning')==true ? 'checked' : ''}}>
+                                                        <label for="morning-3">Sáng</label></li>
+                                                    <li>
+                                                        <input name="schedule[tue][]" type="checkbox" id="afternoon-3" value="afternoon"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('tue','afternoon')==true ? 'checked' : ''}}>
+                                                        <label for="afternoon-3">Chiều</label></li>
+                                                    <li>
+                                                        <input name="schedule[tue][]" type="checkbox" id="evening-3" value="evening"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('tue','evening')==true ? 'checked' : ''}}>
+                                                        <label for="evening-3">Tối</label></li>
+                                                </ul>
+                                            </div>
+                                            <div class="day-of-week wed">
+                                                <button type="button" value="wed" class="btn btn-secondary">Thứ 4</button>
+                                                <ul class="custom-checkbox">
+                                                    <li>
+                                                        <input name="schedule[wed][]" type="checkbox" id="morning-4" value="morning"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('wed','morning')==true ? 'checked' : ''}}>
+                                                        <label for="morning-4">Sáng</label></li>
+                                                    <li>
+                                                        <input name="schedule[wed][]" type="checkbox" id="afternoon-4" value="afternoon"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('wed','afternoon')==true ? 'checked' : ''}}>
+                                                        <label for="afternoon-4">Chiều</label></li>
+                                                    <li>
+                                                        <input name="schedule[wed][]" type="checkbox" id="evening-4" value="evening"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('wed','evening')==true ? 'checked' : ''}}>
+                                                        <label for="evening-4">Tối</label></li>
+                                                </ul>
+                                            </div>
+                                            <div class="day-of-week thur">
+                                                <button type="button" value="thur" class="btn btn-secondary">Thứ 5</button>
+                                                <ul class="custom-checkbox">
+                                                    <li>
+                                                        <input name="schedule[thur][]" type="checkbox" id="morning-5" value="morning"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('thur','morning')==true ? 'checked' : ''}}>
+                                                        <label for="morning-5">Sáng</label></li>
+                                                    <li>
+                                                        <input name="schedule[thur][]" type="checkbox" id="afternoon-5" value="afternoon"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('thur','afternoon')==true ? 'checked' : ''}}>
+                                                        <label for="afternoon-5">Chiều</label></li>
+                                                    <li>
+                                                        <input name="schedule[thur][]" type="checkbox" id="evening-5" value="evening"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('thur','evening')==true ? 'checked' : ''}}>
+                                                        <label for="evening-5">Tối</label></li>
+                                                </ul>
+                                            </div>
+                                            <div class="day-of-week fri">
+                                                <button type="button" value="fri" class="btn btn-secondary">Thứ 6</button>
+                                                <ul class="custom-checkbox">
+                                                    <li>
+                                                        <input name="schedule[fri][]" type="checkbox" id="morning-6" value="morning"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('fri','morning')==true ? 'checked' : ''}}>
+                                                        <label for="morning-6">Sáng</label></li>
+                                                    <li>
+                                                        <input name="schedule[fri][]" type="checkbox" id="afternoon-6" value="afternoon"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('fri','afternoon')==true ? 'checked' : ''}}>
+                                                        <label for="afternoon-6">Chiều</label></li>
+                                                    <li>
+                                                        <input name="schedule[fri][]" type="checkbox" id="evening-6" value="evening"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('fri','evening')==true ? 'checked' : ''}}>
+                                                        <label for="evening-6">Tối</label></li>
+                                                </ul>
+                                            </div>
+                                            <div class="day-of-week sat">
+                                                <button type="button" value="sat" class="btn btn-secondary">Thứ 7</button>
+                                                <ul class="custom-checkbox">
+                                                    <li>
+                                                        <input name="schedule[sat][]" type="checkbox" id="morning-7" value="morning"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sat','morning')==true ? 'checked' : ''}}>
+                                                        <label for="morning-7">Sáng</label></li>
+                                                    <li>
+                                                        <input name="schedule[sat][]" type="checkbox" id="afternoon-7" value="afternoon"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sat','afternoon')==true ? 'checked' : ''}}>
+                                                        <label for="afternoon-7">Chiều</label></li>
+                                                    <li>
+                                                        <input name="schedule[sat][]" type="checkbox" id="evening-7" value="evening"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sat','evening')==true ? 'checked' : ''}}>
+                                                        <label for="evening-7">Tối</label></li>
+                                                </ul>
+                                            </div>
+                                            <div class="day-of-week sun">
+                                                <button type="button" value="sun" class="btn btn-secondary">Chủ Nhật</button>
+                                                <ul class="custom-checkbox">
+                                                    <li>
+                                                        <input name="schedule[sun][]" type="checkbox" id="morning-8" value="morning"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sun','morning')==true ? 'checked' : ''}}>
+                                                        <label for="morning-8">Sáng</label></li>
+                                                    <li>
+                                                        <input name="schedule[sun][]" type="checkbox" id="afternoon-8" value="afternoon"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sun','afternoon')==true ? 'checked' : ''}}>
+                                                        <label for="afternoon-8">Chiều</label></li>
+                                                    <li>
+                                                        <input name="schedule[sun][]" type="checkbox" id="evening-8" value="evening"
+                                                            {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sun','evening')==true ? 'checked' : ''}}>
+                                                        <label for="evening-8">Tối</label></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <!-- /Schedule Header -->
-
-                                        <!-- Schedule Content -->
-                                        <div class="tab-content schedule-cont">
-
-                                            <!-- Sunday Slot -->
-                                            <div id="slot_sunday" class="tab-pane fade">
-                                                <h4 class="card-title d-flex justify-content-between">
-                                                    <span>Time Slots</span>
-                                                    <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                </h4>
-                                                <p class="text-muted mb-0">Not Available</p>
-                                            </div>
-                                            <!-- /Sunday Slot -->
-
-                                            <!-- Monday Slot -->
-                                            <div id="slot_monday" class="tab-pane fade show active">
-                                                <h4 class="card-title d-flex justify-content-between">
-                                                    <span>Time Slots</span>
-                                                    <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
-                                                </h4>
-
-                                                <!-- Slot List -->
-                                                <div class="doc-times">
-                                                    <div class="doc-slot-list">
-                                                        8:00 pm - 11:30 pm
-                                                        <a href="javascript:void(0)" class="delete_schedule">
-                                                            <i class="fa fa-times"></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="doc-slot-list">
-                                                        11:30 pm - 1:30 pm
-                                                        <a href="javascript:void(0)" class="delete_schedule">
-                                                            <i class="fa fa-times"></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="doc-slot-list">
-                                                        3:00 pm - 5:00 pm
-                                                        <a href="javascript:void(0)" class="delete_schedule">
-                                                            <i class="fa fa-times"></i>
-                                                        </a>
-                                                    </div>
-                                                    <div class="doc-slot-list">
-                                                        6:00 pm - 11:00 pm
-                                                        <a href="javascript:void(0)" class="delete_schedule">
-                                                            <i class="fa fa-times"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <!-- /Slot List -->
-
-                                            </div>
-                                            <!-- /Monday Slot -->
-
-                                            <!-- Tuesday Slot -->
-                                            <div id="slot_tuesday" class="tab-pane fade">
-                                                <h4 class="card-title d-flex justify-content-between">
-                                                    <span>Time Slots</span>
-                                                    <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                </h4>
-                                                <p class="text-muted mb-0">Not Available</p>
-                                            </div>
-                                            <!-- /Tuesday Slot -->
-
-                                            <!-- Wednesday Slot -->
-                                            <div id="slot_wednesday" class="tab-pane fade">
-                                                <h4 class="card-title d-flex justify-content-between">
-                                                    <span>Time Slots</span>
-                                                    <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                </h4>
-                                                <p class="text-muted mb-0">Not Available</p>
-                                            </div>
-                                            <!-- /Wednesday Slot -->
-
-                                            <!-- Thursday Slot -->
-                                            <div id="slot_thursday" class="tab-pane fade">
-                                                <h4 class="card-title d-flex justify-content-between">
-                                                    <span>Time Slots</span>
-                                                    <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                </h4>
-                                                <p class="text-muted mb-0">Not Available</p>
-                                            </div>
-                                            <!-- /Thursday Slot -->
-
-                                            <!-- Friday Slot -->
-                                            <div id="slot_friday" class="tab-pane fade">
-                                                <h4 class="card-title d-flex justify-content-between">
-                                                    <span>Time Slots</span>
-                                                    <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                </h4>
-                                                <p class="text-muted mb-0">Not Available</p>
-                                            </div>
-                                            <!-- /Friday Slot -->
-
-                                            <!-- Saturday Slot -->
-                                            <div id="slot_saturday" class="tab-pane fade">
-                                                <h4 class="card-title d-flex justify-content-between">
-                                                    <span>Time Slots</span>
-                                                    <a class="edit-link" data-toggle="modal" href="#add_time_slot"><i class="fa fa-plus-circle"></i> Add Slot</a>
-                                                </h4>
-                                                <p class="text-muted mb-0">Not Available</p>
-                                            </div>
-                                            <!-- /Saturday Slot -->
-
-                                        </div>
-                                        <!-- /Schedule Content -->
-
+                                        <i class="js-errors" style="display: none"></i>
                                     </div>
+
                                 </div>
+                                @error('schedule')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="submit-section submit-btn-bottom">
+                                <button type="submit" class="btn btn-primary submit-btn">Cập nhật</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </form>
     </div>
 @endsection

@@ -46,9 +46,6 @@ Route::post('/student/dashboard/accept', 'StudentController@acceptRequest')->nam
 Route::post('/student/dashboard/decline', 'StudentController@declineRequest')->name('student.declineRequest');
 Route::post('/student/dashboard/delete', 'StudentController@deleteRequest')->name('student.deleteRequest');
 
-Route::get('/tutor/appointment', function (){
-    return view('tutor.appointment');
-});
 
 Route::get('/tutor/transaction', function (){
     return view('tutor.transaction');
@@ -58,9 +55,8 @@ Route::get('/tutor/social', function (){
     return view('tutor.social');
 });
 
-Route::get('/tutor/schedule', function (){
-    return view('tutor.schedule');
-});
+Route::get('/tutor/dashboard/schedule', 'TutorController@showTutorSchedule')->name('tutor.showSchedule');;
+Route::patch('/tutor/dashboard/schedule-update/', 'TutorController@updateSchedule')->name('tutor.updateSchedule');
 
 Route::get('/tutor/review', function (){
     return view('tutor.review');
@@ -72,6 +68,8 @@ Route::patch('/tutor/dashboard/update-profile/{tutor}', 'TutorController@updateP
 Route::get('/tutor/student', function (){
     return view('tutor.student');
 });
+Route::get('/tutor/student', 'TutorController@listStudent')->name('tutor.listStudent');
+
 Route::get('/tutor/message', function (){
     return view('tutor.message');
 });
@@ -192,3 +190,13 @@ Route::post('/admin/subject/save', 'AdminController@saveSubject')->name('saveSub
 Route::get('/admin/add-subject', 'AdminController@createSubject')->name('createSubject');
 Route::post('/admin/subject', 'AdminController@storeSubject')->name('storeSubject');
 Route::get('/admin/subject/delete/{subject}', 'AdminController@deleteSubject')->name('deleteSubject');
+
+
+Route::get('/admin/tutors', 'AdminController@showTutors')->name('showTutors');
+Route::get('/admin/tutor/{tutor}', 'AdminController@viewTutor')->name('viewTutor');
+Route::get('/admin/tutor/delete/{tutor}', 'AdminController@deleteTutor')->name('deleteTutor');
+
+
+Route::get('/admin/students', 'AdminController@showStudents')->name('showStudents');
+Route::get('/admin/student/{student}', 'AdminController@viewStudent')->name('viewStudent');
+Route::get('/admin/student/delete/{student}', 'AdminController@deleteStudent')->name('deleteStudent');

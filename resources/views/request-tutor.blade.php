@@ -28,7 +28,7 @@
 
             <div class="row">
                 <div class="col-md-8 col-lg-9">
-                    <form action="{{ route('request.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('request.store') }}" method="post" id="form" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
                     <!-- Basic Information -->
@@ -36,13 +36,13 @@
                             <div class="card-header">
                                 <h4 class="card-title">Mô tả yêu cầu tìm gia sư</h4>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body request-information">
                                 <h4 class="card-title">Thông tin cơ bản</h4>
                                 <div class="row form-row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="short_description">Tóm tắt yêu cầu <span class="text-danger">*</span></label>
-                                            <input name="short_description" value="{{old('short_description')}}" id="short_description" type="text" placeholder="Ví dụ: Tìm gia sư Tiếng Anh tại Hà Nội" class="form-control">
+                                            <input required name="short_description" value="{{old('short_description')}}" id="short_description" type="text" placeholder="Ví dụ: Tìm gia sư Tiếng Anh tại Hà Nội" class="form-control">
                                             @error('short_description')
                                             <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -51,7 +51,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="subject">Môn học</label>
-                                            <select name="subject" id="subject" class="form-control select">
+                                            <select required name="subject" id="subject" class="form-control select">
                                                 <option value="">Lựa chọn</option>
                                                 @foreach($specialities as $speciality)
                                                     <optgroup label="{{$speciality->name}}">
@@ -78,7 +78,7 @@
                                 <div class="row custom_price_cont" id="custom_price_cont" >
                                     <div class="col-md-6">
                                         <label for="expect_fee">Học phí</label>
-                                        <input type="text" value="{{ old('expect_fee') }}" class="form-control" id="expect_fee" name="expect_fee"  placeholder="200 000">
+                                        <input type="number" required value="{{ old('expect_fee') }}" class="form-control" id="expect_fee" name="expect_fee"  placeholder="200 000">
                                         <small class="form-text text-muted">Học phí tính trên 1 buổi học (VNĐ)</small>
                                         @error('expect_fee')
                                         <small class="text-danger">{{ $message }}</small>
@@ -123,7 +123,7 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="phone">Điện thoại liên hệ</label>
-                                            <input name="phone" value="{{ old('phone') }}" id="phone" type="text" class="form-control">
+                                            <input name="phone" required value="{{ old('phone') }}" id="phone" type="text" class="form-control">
                                             @error('phone')
                                             <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -133,12 +133,12 @@
                                     <div class="col-md-6 ">
                                         <label>Hình thức học</label>
                                         <div class="form-group" id="study-method-select">
-                                            <div class="custom-control custom-checkbox custom-control-inline">
-                                                <input name="learning_method[home]" type="checkbox" class="custom-control-input" value="1" id="home-study" >
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" id="home-study" name="learning_method" value="1" required="">
                                                 <label class="custom-control-label" for="home-study">Gia sư tại nhà</label>
                                             </div>
-                                            <div class="custom-control custom-checkbox custom-control-inline">
-                                                <input name="learning_method[online]" type="checkbox" class="custom-control-input" value="1"  id="online-study" >
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" id="online-study" name="learning_method" value="2" required="">
                                                 <label class="custom-control-label" for="online-study">Học online</label>
                                             </div>
                                             <div>
@@ -146,6 +146,7 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
+                                            <i class="js-errors" style="display: none"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +192,7 @@
                         <!-- Clinic Info -->
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Thông tin lớp học</h4>
+                                <h4 class="card-title">Thời gian có thể học</h4>
                                 <div class="row form-row justify-content-center">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -253,6 +254,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                            <i class="js-errors" style="display: none"></i>
                                         </div>
 
                                     </div>
@@ -272,7 +274,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="description">Mô tả chi tiết nội dung muốn học</label>
-                                            <textarea name="description" id="description" class="form-control" rows="3">{{old('description')}}</textarea>
+                                            <textarea required name="description" id="description" class="form-control" rows="3">{{old('description')}}</textarea>
                                             @error('description')
                                             <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -283,13 +285,15 @@
                                             <label>Kiểu gia sư</label>
                                             <div id="type-of-tutor">
                                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input name="type_of_tutor[student]" value="1" type="checkbox" class="custom-control-input" id="sinhvien">
+                                                    <input name="type_of_tutor[student]" value="1" type="checkbox" class="custom-control-input checkbox" id="sinhvien">
                                                     <label class="custom-control-label" for="sinhvien">Sinh viên</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input name="type_of_tutor[teacher]" value="1" type="checkbox" class="custom-control-input"  id="giaovien">
+                                                    <input name="type_of_tutor[teacher]" value="1" type="checkbox" class="custom-control-input checkbox"  id="giaovien">
                                                     <label class="custom-control-label" for="giaovien">Giáo viên</label>
                                                 </div>
+                                                <i class="js-errors" style="display: none"></i>
+
                                             </div>
                                         </div>
                                     </div>
@@ -298,13 +302,14 @@
                                             <label>Giới tính gia sư</label>
                                             <div id="type-of-tutor">
                                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input name="tutor_gender[male]" value="1" type="checkbox" class="custom-control-input" id="male-tutor" >
+                                                    <input name="tutor_gender[male]" value="1" type="checkbox" class="custom-control-input checkbox" id="male-tutor" >
                                                     <label class="custom-control-label" for="male-tutor">Nam</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input name="tutor_gender[female]" value="1" type="checkbox" class="custom-control-input"  id="female-tutor" >
+                                                    <input name="tutor_gender[female]" value="1" type="checkbox" class="custom-control-input checkbox"  id="female-tutor" >
                                                     <label class="custom-control-label" for="female-tutor">Nữ</label>
                                                 </div>
+                                                <i class="js-errors" style="display: none"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -324,7 +329,7 @@
 
 
                         <div class="submit-section submit-btn-bottom">
-                            <button type="submit" class="btn btn-primary submit-btn">Đăng yêu cầu</button>
+                            <button id="submit" type="submit" class="btn btn-primary submit-btn">Đăng yêu cầu</button>
                         </div>
                     </form>
                 </div>

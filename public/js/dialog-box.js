@@ -9,11 +9,25 @@ let studentId = $bookModalTutor.attr('student-data');
     // console.log(studentId);
 
 $bookBtn.click(function () {
+    const curentPath = window.location.href;
+    const lastPath = curentPath.substring(curentPath.lastIndexOf('/') + 1);
+
     let self = $(this);
     let tutor = [];
     let tutorName = self.closest('.pro-content').find('.title a').html();
     let tutorAvatar = self.closest('.pro-content').prev().find('img').attr('src');
     let tutorId = self.closest('.pro-content').attr('tutor-data');
+    if (lastPath == 'search'){
+        tutorName = self.closest('.card-body').find('.doc-name a').html();
+        tutorAvatar = self.closest('.card-body').find('.doctor-img img').attr('src');
+        tutorId = self.closest('.card-body').find('.doc-info-cont .doc-name').attr('tutor-data');
+    }
+    if (isNaN(lastPath) == false){
+        tutorName = self.closest('.card-body').find('.doc-info-left .doc-name').html();
+        tutorAvatar = self.closest('.card-body').find('.doctor-img img').attr('src');
+        tutorId = self.closest('.card-body').find('.doc-info-cont .doc-name').attr('tutor-data');
+        console.log(tutorName)
+    }
     $tutorBookName.attr('tutor-data',tutorId);
     $tutorBookName.html(tutorName);
     $tutorBookImg.attr('src', tutorAvatar);
@@ -38,9 +52,11 @@ $bookBtn.click(function () {
     }
 
     function createHtml(data) {
+        let html = '';
         $('.request-cont').html('');
-    $.each(data, function (key, val) {
-        let html = `
+        if (data !== undefined && data.length > 0) {
+            $.each(data, function (key, val) {
+                html = `
             <div class="append-request row form-row">
                 <div class="col-12 col-md-10 col-lg-11">
                     <div class="form-group">
@@ -52,8 +68,16 @@ $bookBtn.click(function () {
                 </div>
             </div>
         `;
+            })
+        } else {
+            html = `
+            <div class="append-request row form-row">
+                Bạn chưa có yêu cầu tìm gia sư nào. Bấm vào <a href="/request-for-tutor">&nbsp; đây &nbsp; </a> để tạo lớp mới
+            </div>
+        `;
+        }
         $('.request-cont').append(html);
-    })
+
     }
 
 

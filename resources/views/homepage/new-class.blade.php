@@ -8,9 +8,8 @@
                     <p>Các yêu cầu tìm gia sư của học sinh được cập nhật liên tục </p>
                 </div>
                 <div class="about-content">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.</p>
-                    <p>sample paragraph</p>
-                    <a href="javascript:;">Read More..</a>
+                    <p>Bạn là sinh viên hoặc giáo viên có trình độ chuyên môn tốt? Bạn muốn kiếm thêm thu nhập trong thời gian rảnh? Hãy tham khảo các lớp học đang cần tìm gia sư này nhé.</p>
+                    <a href="{{route('request.list')}}">Xem thêm</a>
                 </div>
             </div>
             <div class="col-md-7 col-lg-8 col-xl-9">
@@ -46,7 +45,7 @@
                                         <td>{{$request->short_description}}</td>
                                         <td>{{date('d/m/Y', strtotime($request->created_at))}}</td>
                                         <td>{{$request->expect_fee}} VND</td>
-                                        <td>Hà Nội</td>
+                                        <td>{{$request->city->name ?? ''}}</td>
                                         <td>
                                             @if($request->status===0)
                                                 <span class="badge badge-pill bg-info-light">Đang tìm</span>
@@ -54,7 +53,7 @@
                                             @if($request->status===2)
                                                 <span class="badge badge-pill bg-warning-light">Đấu giá</span>
                                             @endif
-                                            @if($request->status===1)
+                                            @if($request->status===3)
                                                 <span class="badge badge-pill bg-success-light">Đã tìm thấy</span>
                                             @endif
                                         </td>

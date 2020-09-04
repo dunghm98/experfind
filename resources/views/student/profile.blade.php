@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Họ Tên <span class="text-danger">*</span></label>
                                 <input name="name" type="text" class="form-control" value="{{ old('name', $student->name)}}">
@@ -74,23 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label>Môn học quan tâm</label>
-                                <select class="form-control select">
-                                    <option>Toán</option>
-                                    <option>Tiếng Anh</option>
-                                    <option>B-</option>
-                                    <option>B+</option>
-                                    <option>AB-</option>
-                                    <option>AB+</option>
-                                    <option>O-</option>
-                                    <option>O+</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
-
                 <!-- /Profile Settings Form -->
 
             </div>

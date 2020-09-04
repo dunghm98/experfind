@@ -43,17 +43,32 @@ class RequestController extends Controller
         /** @var Student $student */
         $student = auth()->user()->student;
         /** @var \App\Request $requestForTutor */
-
-        $request = $student->createRequest([
-            'short_description' => $data['short_description'],
-            'description' => $data['description'],
-            'subject_id' => $data['subject'],
-            'expect_fee' => $data['expect_fee'],
-            'number_of_hour' => $data['number_of_hour'],
-            'learning_method' => $data['learning_method'],
-            'tutor_gender' => $data['tutor_gender'],
-            'type_of_tutor' => $data['type_of_tutor']
-        ]);
+        if ($data['learning_method'] == 1){
+            $request = $student->createRequest([
+                'short_description' => $data['short_description'],
+                'description' => $data['description'],
+                'subject_id' => $data['subject'],
+                'expect_fee' => $data['expect_fee'],
+                'number_of_hour' => $data['number_of_hour'],
+                'learning_method' => $data['learning_method'],
+                'tutor_gender' => $data['tutor_gender'],
+                'type_of_tutor' => $data['type_of_tutor'],
+                'city_id' => $data['city'],
+                'district_id' => $data['district'],
+                'address' => $data['address']
+            ]);
+        } else if ($data['learning_method'] == 2){
+                $request = $student->createRequest([
+                'short_description' => $data['short_description'],
+                'description' => $data['description'],
+                'subject_id' => $data['subject'],
+                'expect_fee' => $data['expect_fee'],
+                'number_of_hour' => $data['number_of_hour'],
+                'learning_method' => $data['learning_method'],
+                'tutor_gender' => $data['tutor_gender'],
+                'type_of_tutor' => $data['type_of_tutor'],
+            ]);
+        }
         $schedule = $data['schedule'];
         $scheduleData = [];
         foreach ($schedule as $key => $c){

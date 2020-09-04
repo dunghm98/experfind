@@ -30,6 +30,14 @@ Version      : 1.0
 			$('#custom-study-address').hide();
 		}
 	});
+    $('#study-method-select #online-study').change(function(){
+        if(this.checked) {
+            $('#custom-study-address').hide();
+        }
+        else {
+            $('#custom-study-address').show();
+        }
+    });
 
 	// Weekday calendar
 
@@ -202,7 +210,7 @@ Version      : 1.0
                  <div class="col-12 col-md-3 col-lg-3">
                                 <div class="auth-info-img">
                                     <img class="img-rounded" id="preview-auth-info-${authContNum}"
-                                         src="" alt="User Auth-info">
+                                         src="/img/tutors/auth-info/auth-default.png" alt="User Auth-info">
                                 </div>
                             </div>
 `+

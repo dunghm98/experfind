@@ -213,6 +213,10 @@ $(document).on('change', '[auth-info]', function() {
     readURL(this);
     let self = $(this);
     let outImgSelect = this;
+    $('.js-errors').css({
+        'color': 'red',
+        'font-size': '12px'
+    });
     // console.log(self.closest('.col-12').prev());
     // return false;
     if (this.files && this.files[0]) {
@@ -337,7 +341,7 @@ function resetUrlImg(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            $(input).closest('.col-12').next().find('.img-rounded').attr('src','');
+            $(input).closest('.col-12').next().find('.img-rounded').attr('src','/img/tutors/auth-info/auth-default.png');
             console.log('vl')
         };
         reader.readAsDataURL(input.files[0]);

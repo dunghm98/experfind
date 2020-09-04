@@ -4,13 +4,13 @@
         <div class="row">
             <div class="col-md-5 col-lg-4 col-xl-3">
                 <div class="section-header ">
-                    <h2>Book Gia Sư</h2>
-                    <p>Lorem Ipsum is simply dummy text </p>
+                    <h2>Tìm Gia Sư</h2>
+                    <p>Bạn cần nâng cao kiến thức? </p>
                 </div>
                 <div class="about-content">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.</p>
-                    <p>web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes</p>
-                    <a href="search.html">Read More..</a>
+                    <p>Bạn cần tìm gia sư để kèm học, nâng cao kiến thức chuyên môn? Hay muốn tìm gia sư cho con em của mình ôn lại kiến thức trên trường?.</p>
+                    <p>Chúng tôi có đội ngũ gia sư giàu kinh nghiệm có thể đáp ứng tốt nhu cầu của bạn, hãy chọn cho mình một người đồng hành tại đây nhé</p>
+                    <a href="{{ route('list-tutor') }}">Xem thêm </a>
                 </div>
             </div>
             <div class="col-md-7 col-lg-8 col-xl-9">
@@ -31,7 +31,12 @@
                                 <a href="{{route('tutor-profile',$tutor->id)}}">{{$tutor->user->name}}</a>
                                 <i class="fas fa-check-circle verified"></i>
                             </h3>
-                            <p class="speciality">Gia sư tiếng Hàn</p>
+                            <?php
+                            foreach ($tutor->subjects as $subject) {
+                                $subjectArray[] = $subject->name;
+                            }
+                            ?>
+                            <p class="speciality">Gia sư {{isset($subjectArray) ? implode(", ",$subjectArray) : ''}}</p>
                             <div class="rating">
                                 <i class="fas fa-star filled"></i>
                                 <i class="fas fa-star filled"></i>
@@ -42,14 +47,14 @@
                             </div>
                             <ul class="available-info">
                                 <li>
-                                    <i class="fas fa-map-marker-alt"></i> Cầu Giấy, Hà Nội
+                                    <i class="fas fa-map-marker-alt"></i> {{$tutor->user->district->name ?? ''}}, {{$tutor->user->city->name ?? ''}}
                                 </li>
                                 <li>
-                                    <i class="far fa-clock"></i> Available on Fri, 22 Mar
+                                    <i class="far fa-user"></i> {{$tutor->type_of_tutor == 1 ? 'Sinh viên' : 'Giáo viên'}}
                                 </li>
                                 <li>
-                                    <i class="far fa-money-bill-alt"></i> $300 - $1000
-                                    <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i>
+                                    <i class="far fa-money-bill-alt"></i>{{$tutor->tuition_fee ?? 'Dạy miễn phí'}} vnđ
+                                    <i class="fas fa-info-circle" data-toggle="tooltip" title="Học phí cho mỗi giờ"></i>
                                 </li>
                             </ul>
                             <div class="row row-sm">

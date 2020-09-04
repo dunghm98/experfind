@@ -453,7 +453,6 @@
             <div class="card-body">
                 <h4 class="card-title">Xác thực thông tin</h4>
                 <small class="form-text text-danger">Bạn cần tải lên ảnh của các giấy tờ, bằng cấp hay chứng chỉ để tỉ lệ xét duyệt cao và thời gian duyệt được nhanh nhất</small>
-                <div  class="show-message text-info"></div>
                 <div class="mt-2 auth-info" id="authentications-info" tutor-id="{{ $tutor->id }}" >
                     @forelse($tutor->authentications as $key => $auth_info)
                         <div class="row form-row auth-cont">
@@ -513,6 +512,7 @@
                         </div>
                     @endforelse
                 </div>
+                <div  class="show-message text-info"></div>
                 <div class="add-more">
                     <a href="javascript:void(0);" class="add-auth-info"><i class="fa fa-plus-circle"></i> Add More</a>
                 </div>

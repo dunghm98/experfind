@@ -66,15 +66,7 @@ class Student extends Model
                 $fields['type_of_tutor'] = self::TYPE_TEACHER;
             }
         }
-        if ( $fields['learning_method'] && count($fields['learning_method']) === 2 ){
-            $fields['learning_method'] = self::BOTH_LEARNING;
-        } else {
-            if ( array_key_exists('home',$fields['learning_method'])){
-                $fields['learning_method'] = self::HOME_LEARNING;
-            } else if ( array_key_exists('online',$fields['learning_method'])){
-                $fields['learning_method'] = self::ONLINE_LEARNING;
-            }
-        }
+
         return $fields;
     }
 }

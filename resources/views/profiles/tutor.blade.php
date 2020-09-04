@@ -1,3 +1,7 @@
+@section('bottom.js')
+    <script src="{{ asset('js/dialog-box.js') }}"></script>
+@endsection
+
 @extends('layouts.app')
 
 @section('content')
@@ -8,11 +12,11 @@
                 <div class="col-md-12 col-12">
                     <nav aria-label="breadcrumb" class="page-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Tutor Profile</li>
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Gia sư</li>
                         </ol>
                     </nav>
-                    <h2 class="breadcrumb-title">Tutor Profile</h2>
+                    <h2 class="breadcrumb-title">Thông tin gia sư</h2>
                 </div>
             </div>
         </div>
@@ -32,9 +36,14 @@
                                 <img class="img-fluid" src="{{asset($tutor->user->avatar ? 'storage/'. $tutor->user->avatar : ($tutor->user->gender == 1 ? 'img/tutors/avatars/default-boy.png':'img/tutors/avatars/default-girl.png' ))}}" alt="User Image">
                             </div>
                             <div class="doc-info-cont">
-                                <h4 class="doc-name">{{$tutor->user->name}}</h4>
-                                <p class="doc-speciality">Gia sư tiếng việt</p>
-                                <p class="doc-department"><img src="{{asset('img/specialities/teacher.png')}}" class="img-fluid" alt="Speciality">Sinh viên</p>
+                                <h4 class="doc-name" tutor-data="{{$tutor->id}}">{{$tutor->user->name}}</h4>
+                                    <?php
+                                    foreach ($tutor->subjects as $subject) {
+                                        $subjectArray[] = $subject->name;
+                                        }
+                                    ?>
+                                <p class="doc-speciality">Gia sư {{isset($subjectArray) ? implode(", ",$subjectArray) : ''}}</p>
+                                <p class="doc-department"><img src="{{asset('img/specialities/teacher.png')}}" class="img-fluid" alt="Speciality">{{$tutor->type_of_tutor == 1 ? 'Sinh viên' : 'Giáo viên'}}</p>
                                 <div class="rating">
                                     <i class="fas fa-star filled"></i>
                                     <i class="fas fa-star filled"></i>
@@ -54,9 +63,9 @@
                             <div class="clini-infos">
                                 <ul>
                                     <li><i class="far fa-thumbs-up"></i> 99%</li>
-                                    <li><i class="far fa-comment"></i> 35 Feedback</li>
+                                    <li><i class="far fa-comment"></i> 35 Đánh giá</li>
                                     <li><i class="fas fa-map-marker-alt"></i> {{$tutor->user->district->name ?? ''}}, {{$tutor->user->city->name ?? ''}}</li>
-                                    <li><i class="far fa-money-bill-alt"></i> {{$tutor->tuition_fee}} VND per hour </li>
+                                    <li><i class="far fa-money-bill-alt"></i> {{$tutor->tuition_fee}} VND / giờ </li>
                                 </ul>
                             </div>
                             <div class="doctor-action">
@@ -74,7 +83,7 @@
                                 </a>
                             </div>
                             <div class="clinic-booking">
-                                <a class="apt-btn" href="booking.html">Mời dạy</a>
+                                <a href="javascript:void(0)" class="btn apt-btn book-btn" data-toggle="modal" data-target="#book-tutor">Mời dạy</a>
                             </div>
                         </div>
 
@@ -91,16 +100,16 @@
                     <nav class="user-tabs mb-4">
                         <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
                             <li class="nav-item">
-                                <a class="nav-link active" href="#doc_overview" data-toggle="tab">Overview</a>
+                                <a class="nav-link active" href="#doc_overview" data-toggle="tab">Tổng quan</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#doc_locations" data-toggle="tab">Locations</a>
+                                <a class="nav-link" href="#doc_locations" data-toggle="tab">Vị trí</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#doc_reviews" data-toggle="tab">Reviews</a>
+                                <a class="nav-link" href="#doc_reviews" data-toggle="tab">Đánh giá</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#doc_business_hours" data-toggle="tab">Business Hours</a>
+                                <a class="nav-link" href="#doc_business_hours" data-toggle="tab">Thời gian dạy</a>
                             </li>
                         </ul>
                     </nav>
@@ -116,14 +125,14 @@
 
                                     <!-- About Details -->
                                     <div class="widget about-widget">
-                                        <h4 class="widget-title">About Me</h4>
+                                        <h4 class="widget-title">Giới thiệu bản thân</h4>
                                         <p>{{$tutor->introduction}}</p>
                                     </div>
                                     <!-- /About Details -->
 
                                     <!-- Education Details -->
                                     <div class="widget education-widget">
-                                        <h4 class="widget-title">Education</h4>
+                                        <h4 class="widget-title">Học vấn</h4>
                                         <div class="experience-box">
                                             <ul class="experience-list">
                                                 @foreach($tutor->educations as $edu)
@@ -162,7 +171,7 @@
 
                                     <!-- Experience Details -->
                                     <div class="widget experience-widget">
-                                        <h4 class="widget-title">Work & Experience</h4>
+                                        <h4 class="widget-title">Kinh nghiệm giảng dạy và làm việc</h4>
                                         <div class="experience-box">
                                             <ul class="experience-list">
                                                 @foreach($tutor->experiences as $exp)
@@ -185,7 +194,7 @@
 
                                     <!-- Certificates Details -->
                                     <div class="widget awards-widget">
-                                        <h4 class="widget-title">Certificates</h4>
+                                        <h4 class="widget-title">Chứng chỉ</h4>
                                         <div class="experience-box">
                                             <ul class="experience-list">
                                                 @foreach($tutor->certificates as $cert)
@@ -209,7 +218,7 @@
 
                                     <!-- Services List -->
                                     <div class="service-list">
-                                        <h4>Subjects</h4>
+                                        <h4>Môn học</h4>
                                         <ul class="clearfix">
                                             @foreach($tutor->subjects as $subject)
                                                 <li>{{$subject->name}}</li>
@@ -219,7 +228,7 @@
                                     <!-- /Services List -->
                                     <!-- Specializations List -->
                                     <div class="service-list">
-                                        <h4>Specializations</h4>
+                                        <h4>Chuyên môn</h4>
                                         <ul class="clearfix">
                                             @foreach($tutor->getSpecialities() as $spc)
                                                 <li>{{$spc->name}}</li>
@@ -236,163 +245,12 @@
                         <div role="tabpanel" id="doc_locations" class="tab-pane fade">
 
                             <!-- Location List -->
-                            <div class="location-list">
-                                <div class="row">
-
-                                    <!-- Clinic Content -->
-                                    <div class="col-md-6">
-                                        <div class="clinic-content">
-                                            <h4 class="clinic-name"><a href="#">Smile Cute Dental Care Center</a></h4>
-                                            <p class="doc-speciality">MDS - Periodontology and Oral Implantology, BDS</p>
-                                            <div class="rating">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star"></i>
-                                                <span class="d-inline-block average-rating">(4)</span>
-                                            </div>
-                                            <div class="clinic-details mb-0">
-                                                <h5 class="clinic-direction"> <i class="fas fa-map-marker-alt"></i> 2286  Sundown Lane, Austin, Texas 78749, USA <br><a href="javascript:void(0);">Get Directions</a></h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery2">
-                                                            <img src="assets/img/features/feature-01.jpg" alt="Feature Image">
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery2">
-                                                            <img src="assets/img/features/feature-02.jpg" alt="Feature Image">
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery2">
-                                                            <img src="assets/img/features/feature-03.jpg" alt="Feature Image">
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery2">
-                                                            <img src="assets/img/features/feature-04.jpg" alt="Feature Image">
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /Clinic Content -->
-
-                                    <!-- Clinic Timing -->
-                                    <div class="col-md-4">
-                                        <div class="clinic-timing">
-                                            <div>
-                                                <p class="timings-days">
-                                                    <span> Mon - Sat </span>
-                                                </p>
-                                                <p class="timings-times">
-                                                    <span>10:00 AM - 2:00 PM</span>
-                                                    <span>4:00 PM - 9:00 PM</span>
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <p class="timings-days">
-                                                    <span>Sun</span>
-                                                </p>
-                                                <p class="timings-times">
-                                                    <span>10:00 AM - 2:00 PM</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /Clinic Timing -->
-
-                                    <div class="col-md-2">
-                                        <div class="consult-price">
-                                            $250
-                                        </div>
-                                    </div>
-                                </div>
+                            <!-- Certificates Details -->
+                            <div class="widget awards-widget">
+                                <h4 class="widget-title">Địa chỉ:</h4>
+                                <p><?php echo e($tutor->user->district->name ?? ''); ?>, <?php echo e($tutor->user->city->name ?? ''); ?></p>
                             </div>
-                            <!-- /Location List -->
-
-                            <!-- Location List -->
-                            <div class="location-list">
-                                <div class="row">
-
-                                    <!-- Clinic Content -->
-                                    <div class="col-md-6">
-                                        <div class="clinic-content">
-                                            <h4 class="clinic-name"><a href="#">The Family Dentistry Clinic</a></h4>
-                                            <p class="doc-speciality">MDS - Periodontology and Oral Implantology, BDS</p>
-                                            <div class="rating">
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star filled"></i>
-                                                <i class="fas fa-star"></i>
-                                                <span class="d-inline-block average-rating">(4)</span>
-                                            </div>
-                                            <div class="clinic-details mb-0">
-                                                <p class="clinic-direction"> <i class="fas fa-map-marker-alt"></i> 2883  University Street, Seattle, Texas Washington, 98155 <br><a href="javascript:void(0);">Get Directions</a></p>
-                                                <ul>
-                                                    <li>
-                                                        <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery2">
-                                                            <img src="assets/img/features/feature-01.jpg" alt="Feature Image">
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery2">
-                                                            <img src="assets/img/features/feature-02.jpg" alt="Feature Image">
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery2">
-                                                            <img src="assets/img/features/feature-03.jpg" alt="Feature Image">
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery2">
-                                                            <img src="assets/img/features/feature-04.jpg" alt="Feature Image">
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <!-- /Clinic Content -->
-
-                                    <!-- Clinic Timing -->
-                                    <div class="col-md-4">
-                                        <div class="clinic-timing">
-                                            <div>
-                                                <p class="timings-days">
-                                                    <span> Tue - Fri </span>
-                                                </p>
-                                                <p class="timings-times">
-                                                    <span>11:00 AM - 1:00 PM</span>
-                                                    <span>6:00 PM - 11:00 PM</span>
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <p class="timings-days">
-                                                    <span>Sat - Sun</span>
-                                                </p>
-                                                <p class="timings-times">
-                                                    <span>8:00 AM - 10:00 AM</span>
-                                                    <span>3:00 PM - 7:00 PM</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /Clinic Timing -->
-
-                                    <div class="col-md-2">
-                                        <div class="consult-price">
-                                            $350
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- /Awards Details -->
                             <!-- /Location List -->
 
                         </div>
@@ -408,11 +266,11 @@
                                     <!-- Comment List -->
                                     <li>
                                         <div class="comment">
-                                            <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient.jpg">
+                                            <img class="avatar avatar-sm rounded-circle" alt="User Image" src="<?php echo e(asset('img/tutors/avatars/default-girl.png' )); ?>">
                                             <div class="comment-body">
                                                 <div class="meta-data">
-                                                    <span class="comment-author">Richard Wilson</span>
-                                                    <span class="comment-date">Reviewed 2 Days ago</span>
+                                                    <span class="comment-author">Bùi Đan Linh</span>
+                                                    <span class="comment-date">Đánh giá 2 ngày trước</span>
                                                     <div class="review-count rating">
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star filled"></i>
@@ -421,24 +279,22 @@
                                                         <i class="fas fa-star"></i>
                                                     </div>
                                                 </div>
-                                                <p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
+                                                <p class="recommended"><i class="far fa-thumbs-up"></i> Gia sư này rất tốt</p>
                                                 <p class="comment-content">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                    Ut enim ad minim veniam, quis nostrud exercitation.
-                                                    Curabitur non nulla sit amet nisl tempus
+                                                    Mình đã học qua gia sư này đc một năm, anh dạy rất tâm huyết, kiến thức sâu rộng,
+                                                    lại dạy rất dễ hiểu nữa, đi dạy luôn đúng giờ và chữa bài rất kỹ
                                                 </p>
                                                 <div class="comment-reply">
                                                     <a class="comment-btn" href="#">
-                                                        <i class="fas fa-reply"></i> Reply
+                                                        <i class="fas fa-reply"></i> Trả lời
                                                     </a>
                                                     <p class="recommend-btn">
                                                         <span>Recommend?</span>
                                                         <a href="#" class="like-btn">
-                                                            <i class="far fa-thumbs-up"></i> Yes
+                                                            <i class="far fa-thumbs-up"></i> Có
                                                         </a>
                                                         <a href="#" class="dislike-btn">
-                                                            <i class="far fa-thumbs-down"></i> No
+                                                            <i class="far fa-thumbs-down"></i> Không
                                                         </a>
                                                     </p>
                                                 </div>
@@ -449,11 +305,11 @@
                                         <ul class="comments-reply">
                                             <li>
                                                 <div class="comment">
-                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient1.jpg">
+                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image" src="<?php echo e(asset('img/tutors/avatars/default-girl.png' )); ?>">
                                                     <div class="comment-body">
                                                         <div class="meta-data">
-                                                            <span class="comment-author">Charlene Reed</span>
-                                                            <span class="comment-date">Reviewed 3 Days ago</span>
+                                                            <span class="comment-author">Nguyễn Thu Phương</span>
+                                                            <span class="comment-date">Đánh giá 3 ngày trước</span>
                                                             <div class="review-count rating">
                                                                 <i class="fas fa-star filled"></i>
                                                                 <i class="fas fa-star filled"></i>
@@ -463,22 +319,20 @@
                                                             </div>
                                                         </div>
                                                         <p class="comment-content">
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                            Ut enim ad minim veniam.
-                                                            Curabitur non nulla sit amet nisl tempus
+                                                            Ừ mình cũng thấy vậy, năm ngoái mình có học anh này 1 khóa, và sau 6 tháng trình độ của mình
+                                                            đã tăng lên rất nhiều, cảm thấy may mắn khi được học anh
                                                         </p>
                                                         <div class="comment-reply">
                                                             <a class="comment-btn" href="#">
-                                                                <i class="fas fa-reply"></i> Reply
+                                                                <i class="fas fa-reply"></i> Trả lời
                                                             </a>
                                                             <p class="recommend-btn">
                                                                 <span>Recommend?</span>
                                                                 <a href="#" class="like-btn">
-                                                                    <i class="far fa-thumbs-up"></i> Yes
+                                                                    <i class="far fa-thumbs-up"></i> Có
                                                                 </a>
                                                                 <a href="#" class="dislike-btn">
-                                                                    <i class="far fa-thumbs-down"></i> No
+                                                                    <i class="far fa-thumbs-down"></i> Không
                                                                 </a>
                                                             </p>
                                                         </div>
@@ -494,11 +348,11 @@
                                     <!-- Comment List -->
                                     <li>
                                         <div class="comment">
-                                            <img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient2.jpg">
+                                            <img class="avatar avatar-sm rounded-circle" alt="User Image" src="<?php echo e(asset('img/tutors/avatars/default-boy.png' )); ?>">
                                             <div class="comment-body">
                                                 <div class="meta-data">
-                                                    <span class="comment-author">Travis Trimble</span>
-                                                    <span class="comment-date">Reviewed 4 Days ago</span>
+                                                    <span class="comment-author">Nguyễn Tùng Dương</span>
+                                                    <span class="comment-date">Đánh giá 4 ngày trước</span>
                                                     <div class="review-count rating">
                                                         <i class="fas fa-star filled"></i>
                                                         <i class="fas fa-star filled"></i>
@@ -508,22 +362,20 @@
                                                     </div>
                                                 </div>
                                                 <p class="comment-content">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                    Ut enim ad minim veniam, quis nostrud exercitation.
-                                                    Curabitur non nulla sit amet nisl tempus
+                                                    Mình cũng đã học qua gia sư này đc hai năm, anh dạy rất nhiệt tình, kiến thức sâu rộng,
+                                                    lại dạy rất dễ hiểu nữa, khuyến khích mọi người nên học anh này nha
                                                 </p>
                                                 <div class="comment-reply">
                                                     <a class="comment-btn" href="#">
-                                                        <i class="fas fa-reply"></i> Reply
+                                                        <i class="fas fa-reply"></i> Trả lời
                                                     </a>
                                                     <p class="recommend-btn">
                                                         <span>Recommend?</span>
                                                         <a href="#" class="like-btn">
-                                                            <i class="far fa-thumbs-up"></i> Yes
+                                                            <i class="far fa-thumbs-up"></i> Có
                                                         </a>
                                                         <a href="#" class="dislike-btn">
-                                                            <i class="far fa-thumbs-down"></i> No
+                                                            <i class="far fa-thumbs-down"></i> Không
                                                         </a>
                                                     </p>
                                                 </div>
@@ -537,7 +389,7 @@
                                 <!-- Show All -->
                                 <div class="all-feedback text-center">
                                     <a href="#" class="btn btn-primary btn-sm">
-                                        Show all feedback <strong>(167)</strong>
+                                        Hiển thị toàn bộ đánh giá <strong>(167)</strong>
                                     </a>
                                 </div>
                                 <!-- /Show All -->
@@ -547,12 +399,12 @@
 
                             <!-- Write Review -->
                             <div class="write-review">
-                                <h4>Write a review for <strong>Dr. Darren Elder</strong></h4>
+                                <h4>Viết đánh giá cho gia sư <strong>{{ $tutor->user->name }}</strong></h4>
 
                                 <!-- Write Review Form -->
                                 <form>
                                     <div class="form-group">
-                                        <label>Review</label>
+                                        <label>Đánh giá</label>
                                         <div class="star-rating">
                                             <input id="star-5" type="radio" name="rating" value="star-5">
                                             <label for="star-5" title="5 stars">
@@ -577,26 +429,26 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Title of your review</label>
-                                        <input class="form-control" type="text" placeholder="If you could say it in one sentence, what would you say?">
+                                        <label>Tiêu đề đánh giá</label>
+                                        <input class="form-control" type="text" placeholder="Bạn cảm thấy gia sư này có tốt không?">
                                     </div>
                                     <div class="form-group">
-                                        <label>Your review</label>
+                                        <label>Nội dung</label>
                                         <textarea id="review_desc" maxlength="100" class="form-control"></textarea>
 
-                                        <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars">100</span> characters remaining</small></div>
+                                        <div class="d-flex justify-content-between mt-3"><small class="text-muted">còn lại <span id="chars">100</span> từ </small></div>
                                     </div>
                                     <hr>
                                     <div class="form-group">
                                         <div class="terms-accept">
                                             <div class="custom-checkbox">
                                                 <input type="checkbox" id="terms_accept">
-                                                <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
+                                                <label for="terms_accept">Tôi xin đồng ý với <a href="#">điều khoản</a> và cam kết đánh giá này là chính xác </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="submit-section">
-                                        <button type="submit" class="btn btn-primary submit-btn">Add Review</button>
+                                        <button type="submit" class="btn btn-primary submit-btn">Gửi đánh giá</button>
                                     </div>
                                 </form>
                                 <!-- /Write Review Form -->
@@ -610,61 +462,135 @@
                         <!-- Business Hours Content -->
                         <div role="tabpanel" id="doc_business_hours" class="tab-pane fade">
                             <div class="row">
-                                <div class="col-md-6 offset-md-3">
+                                <div class="col-md-11 offset-md-1">
 
                                     <!-- Business Hours Widget -->
-                                    <div class="widget business-widget">
+                                    <div class="widget">
                                         <div class="widget-content">
-                                            <div class="listing-hours">
-                                                <div class="listing-day current">
-                                                    <div class="day">Today <span>5 Nov 2019</span></div>
-                                                    <div class="time-items">
-                                                        <span class="open-status"><span class="badge bg-success-light">Open Now</span></span>
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
+                                            <div class="form-group">
+                                                <div class="weekday-calendar schedule view-only">
+                                                    <div class="day-of-week mon">
+                                                        <button type="button" value="mon" class="btn btn-secondary">Thứ 2</button>
+                                                        <ul class="custom-checkbox">
+                                                            <li>
+                                                                <input name="schedule[mon][]" type="checkbox" id="morning-2" value="morning"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('mon','morning')==true ? 'checked' : ''}}>
+                                                                <label for="morning-2">Sáng</label>
+                                                            </li>
+                                                            <li>
+                                                                <input name="schedule[mon][]" type="checkbox" id="afternoon-2" value="afternoon"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('mon','afternoon')==true ? 'checked' : ''}}>
+                                                                <label for="afternoon-2">Chiều</label></li>
+                                                            <li>
+                                                                <input name="schedule[mon][]" type="checkbox" id="evening-2" value="evening"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('mon','evening')==true ? 'checked' : ''}}>
+                                                                <label for="evening-2">Tối</label></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="day-of-week tue">
+                                                        <button type="button" value="tue" class="btn btn-secondary">Thứ 3</button>
+                                                        <ul class="custom-checkbox">
+                                                            <li>
+                                                                <input name="schedule[tue][]" type="checkbox" id="morning-3" value="morning"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('tue','morning')==true ? 'checked' : ''}}>
+                                                                <label for="morning-3">Sáng</label></li>
+                                                            <li>
+                                                                <input name="schedule[tue][]" type="checkbox" id="afternoon-3" value="afternoon"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('tue','afternoon')==true ? 'checked' : ''}}>
+                                                                <label for="afternoon-3">Chiều</label></li>
+                                                            <li>
+                                                                <input name="schedule[tue][]" type="checkbox" id="evening-3" value="evening"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('tue','evening')==true ? 'checked' : ''}}>
+                                                                <label for="evening-3">Tối</label></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="day-of-week wed">
+                                                        <button type="button" value="wed" class="btn btn-secondary">Thứ 4</button>
+                                                        <ul class="custom-checkbox">
+                                                            <li>
+                                                                <input name="schedule[wed][]" type="checkbox" id="morning-4" value="morning"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('wed','morning')==true ? 'checked' : ''}}>
+                                                                <label for="morning-4">Sáng</label></li>
+                                                            <li>
+                                                                <input name="schedule[wed][]" type="checkbox" id="afternoon-4" value="afternoon"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('wed','afternoon')==true ? 'checked' : ''}}>
+                                                                <label for="afternoon-4">Chiều</label></li>
+                                                            <li>
+                                                                <input name="schedule[wed][]" type="checkbox" id="evening-4" value="evening"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('wed','evening')==true ? 'checked' : ''}}>
+                                                                <label for="evening-4">Tối</label></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="day-of-week thur">
+                                                        <button type="button" value="thur" class="btn btn-secondary">Thứ 5</button>
+                                                        <ul class="custom-checkbox">
+                                                            <li>
+                                                                <input name="schedule[thur][]" type="checkbox" id="morning-5" value="morning"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('thur','morning')==true ? 'checked' : ''}}>
+                                                                <label for="morning-5">Sáng</label></li>
+                                                            <li>
+                                                                <input name="schedule[thur][]" type="checkbox" id="afternoon-5" value="afternoon"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('thur','afternoon')==true ? 'checked' : ''}}>
+                                                                <label for="afternoon-5">Chiều</label></li>
+                                                            <li>
+                                                                <input name="schedule[thur][]" type="checkbox" id="evening-5" value="evening"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('thur','evening')==true ? 'checked' : ''}}>
+                                                                <label for="evening-5">Tối</label></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="day-of-week fri">
+                                                        <button type="button" value="fri" class="btn btn-secondary">Thứ 6</button>
+                                                        <ul class="custom-checkbox">
+                                                            <li>
+                                                                <input name="schedule[fri][]" type="checkbox" id="morning-6" value="morning"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('fri','morning')==true ? 'checked' : ''}}>
+                                                                <label for="morning-6">Sáng</label></li>
+                                                            <li>
+                                                                <input name="schedule[fri][]" type="checkbox" id="afternoon-6" value="afternoon"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('fri','afternoon')==true ? 'checked' : ''}}>
+                                                                <label for="afternoon-6">Chiều</label></li>
+                                                            <li>
+                                                                <input name="schedule[fri][]" type="checkbox" id="evening-6" value="evening"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('fri','evening')==true ? 'checked' : ''}}>
+                                                                <label for="evening-6">Tối</label></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="day-of-week sat">
+                                                        <button type="button" value="sat" class="btn btn-secondary">Thứ 7</button>
+                                                        <ul class="custom-checkbox">
+                                                            <li>
+                                                                <input name="schedule[sat][]" type="checkbox" id="morning-7" value="morning"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sat','morning')==true ? 'checked' : ''}}>
+                                                                <label for="morning-7">Sáng</label></li>
+                                                            <li>
+                                                                <input name="schedule[sat][]" type="checkbox" id="afternoon-7" value="afternoon"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sat','afternoon')==true ? 'checked' : ''}}>
+                                                                <label for="afternoon-7">Chiều</label></li>
+                                                            <li>
+                                                                <input name="schedule[sat][]" type="checkbox" id="evening-7" value="evening"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sat','evening')==true ? 'checked' : ''}}>
+                                                                <label for="evening-7">Tối</label></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="day-of-week sun">
+                                                        <button type="button" value="sun" class="btn btn-secondary">Chủ Nhật</button>
+                                                        <ul class="custom-checkbox">
+                                                            <li>
+                                                                <input name="schedule[sun][]" type="checkbox" id="morning-8" value="morning"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sun','morning')==true ? 'checked' : ''}}>
+                                                                <label for="morning-8">Sáng</label></li>
+                                                            <li>
+                                                                <input name="schedule[sun][]" type="checkbox" id="afternoon-8" value="afternoon"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sun','afternoon')==true ? 'checked' : ''}}>
+                                                                <label for="afternoon-8">Chiều</label></li>
+                                                            <li>
+                                                                <input name="schedule[sun][]" type="checkbox" id="evening-8" value="evening"
+                                                                    {{$tutor->schedule !== null && $tutor->schedule->checkSchedule('sun','evening')==true ? 'checked' : ''}}>
+                                                                <label for="evening-8">Tối</label></li>
+                                                        </ul>
                                                     </div>
                                                 </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Monday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Tuesday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Wednesday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Thursday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Friday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day">
-                                                    <div class="day">Saturday</div>
-                                                    <div class="time-items">
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div>
-                                                <div class="listing-day closed">
-                                                    <div class="day">Sunday</div>
-                                                    <div class="time-items">
-                                                        <span class="time"><span class="badge bg-danger-light">Closed</span></span>
-                                                    </div>
-                                                </div>
+                                                <i class="js-errors" style="display: none"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -684,4 +610,57 @@
     </div>
     <!-- /Page Content -->
 
+@endsection
+
+
+
+
+
+@section('call-modal')
+    <!-- Book tutor Modal -->
+    <div class="modal fade call-modal" id="book-tutor">
+        <div class="modal-dialog booking-modal modal-dialog-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <div student-data="{{auth()->user()->id ?? 0}}" class="card modal-content" id="booking-modal">
+                        <div class="card-header d-inline-flex justify-content-between">
+                            <h4 class="card-title d-inline-block mr-2">Book Gia Sư:</h4>
+                            <div>
+                                <span class="avatar avatar-sm">
+                                    <img id="tutor-book-img" class="avatar-img rounded-circle" alt="User Image" src="">
+                                </span>
+                                <h5 tutor-data="" id="tutor-book-name" class="d-inline-block">Hoang Manh Dung</h5>
+                            </div>
+                        </div>
+                        <div id="message-box"></div>
+                        <div id="choose-request">
+                            <h5 class="mt-3 mb-1">Chọn yêu cầu học mà bạn muốn mời giáo viên này dạy</h5>
+                            <div class="card-body border">
+                                <div class="mt-3 request-cont">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right"><a href="javascript:void(0);" class="btn btn-secondary btn-exit" data-dismiss="modal" aria-label="Close">Thoát</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Booking Modal -->
+
+@endsection
+@section('booking-modal-css')
+    <style rel="stylesheet" type="text/css">
+
+        .modal.fade .modal-dialog.booking-modal {
+            transition: transform 0.1s ease-out !important;
+            transform: translate(0, -50px);
+        }
+        .modal-backdrop.show {
+            opacity: 0.4;
+            -webkit-transition-duration: 100ms !important;
+            transition-duration: 100ms !important;
+        }
+    </style>
 @endsection

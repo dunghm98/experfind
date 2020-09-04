@@ -140,9 +140,9 @@
                                                         <td> {{$request->short_description}}</td>
                                                         <td>{{date('d/m/Y', strtotime($request->created_at))}}</td>
                                                         <td>{{$request->expect_fee}} VND</td>
-                                                        <td>Hà Nội</td>
+                                                        <td>{{$request->city->name ?? 'Học online'}}</td>
                                                         <td>
-                                                            @if($request->status===1)
+                                                            @if($request->status===0)
                                                                 <span class="badge badge-pill bg-info-light">Đang tìm</span>
                                                             @endif
                                                                 @if($request->status===2)
@@ -152,73 +152,8 @@
                                                                     <span class="badge badge-pill bg-success-light">Đã tìm thấy</span>
                                                                 @endif
                                                         </td>
-
                                                     </tr>
                                                 @endforeach
-{{--                                                <tr class="clickable-row" data-href="doctor-profile.html">--}}
-{{--                                                    <td>--}}
-{{--                                                        <h2 class="table-avatar">--}}
-{{--                                                            <a href="patient-profile.html" class="avatar avatar-sm mr-2">--}}
-{{--                                                                <img class="avatar-img rounded-circle" src="assets/img/students/student-04.jpg" alt="User Image">--}}
-{{--                                                            </a>--}}
-{{--                                                            <a href="patient-profile.html">Hoàng Mạnh Dũng <span>Dental</span></a>--}}
-{{--                                                        </h2>--}}
-{{--                                                    </td>--}}
-{{--                                                    <td> Tìm gia sư NỮ dạy giao tiếpTiếng Đức A1-2 khu vực Cát Linh, An Trạch Đống Đa</td>--}}
-{{--                                                    <td>12 Nov 2019</td>--}}
-{{--                                                    <td>$250</td>--}}
-{{--                                                    <td>Hà Nội</td>--}}
-{{--                                                    <td><span class="badge badge-pill bg-success-light">Đang tìm</span></td>--}}
-
-{{--                                                </tr>--}}
-{{--                                                <tr class="clickable-row" data-href="doctor-profile.html">--}}
-{{--                                                    <td>--}}
-{{--                                                        <h2 class="table-avatar">--}}
-{{--                                                            <a href="patient-profile.html" class="avatar avatar-sm mr-2">--}}
-{{--                                                                <img class="avatar-img rounded-circle" src="assets/img/students/student-01.jpg" alt="User Image">--}}
-{{--                                                            </a>--}}
-{{--                                                            <a href="patient-profile.html">Nguyễn Tùng Dương <span>Dental</span></a>--}}
-{{--                                                        </h2>--}}
-{{--                                                    </td>--}}
-{{--                                                    <td>11 Nov 2019 <span class="d-block text-info">11.00 AM</span></td>--}}
-{{--                                                    <td>10 Nov 2019</td>--}}
-{{--                                                    <td>$400</td>--}}
-{{--                                                    <td>13 Nov 2019</td>--}}
-{{--                                                    <td><span class="badge badge-pill bg-danger-light">Đã tìm thấy</span></td>--}}
-
-{{--                                                </tr>--}}
-{{--                                                <tr class="clickable-row" data-href="doctor-profile.html">--}}
-{{--                                                    <td>--}}
-{{--                                                        <h2 class="table-avatar">--}}
-{{--                                                            <a href="patient-profile.html" class="avatar avatar-sm mr-2">--}}
-{{--                                                                <img class="avatar-img rounded-circle" src="assets/img/students/student-02.jpg" alt="User Image">--}}
-{{--                                                            </a>--}}
-{{--                                                            <a href="patient-profile.html">Phạm Thanh Nhàn<span>Dental</span></a>--}}
-{{--                                                        </h2>--}}
-{{--                                                    </td>--}}
-{{--                                                    <td>10 Nov 2019 <span class="d-block text-info">3.00 PM</span></td>--}}
-{{--                                                    <td>10 Nov 2019</td>--}}
-{{--                                                    <td>$350</td>--}}
-{{--                                                    <td>12 Nov 2019</td>--}}
-{{--                                                    <td><span class="badge badge-pill bg-warning-light">Đấu giá</span></td>--}}
-
-{{--                                                </tr>--}}
-{{--                                                <tr class="clickable-row" data-href="doctor-profile.html" >--}}
-{{--                                                    <td>--}}
-{{--                                                        <h2 class="table-avatar">--}}
-{{--                                                            <a href="patient-profile.html" class="avatar avatar-sm mr-2">--}}
-{{--                                                                <img class="avatar-img rounded-circle" src="assets/img/students/student-03.jpg" alt="User Image">--}}
-{{--                                                            </a>--}}
-{{--                                                            <a href="patient-profile.html">Bùi Đan Linh <span>Dental</span></a>--}}
-{{--                                                        </h2>--}}
-{{--                                                    </td>--}}
-{{--                                                    <td>5 Nov 2019 <span class="d-block text-info">5.00 PM</span></td>--}}
-{{--                                                    <td>1 Nov 2019</td>--}}
-{{--                                                    <td>$100</td>--}}
-{{--                                                    <td>7 Nov 2019</td>--}}
-{{--                                                    <td><span class="badge badge-pill bg-info-light">Completed</span></td>--}}
-
-{{--                                                </tr>--}}
                                                 </tbody>
                                             </table>
                                         </div>

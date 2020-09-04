@@ -77,6 +77,37 @@ class TutorController extends Controller
         return back();
     }
 
+    public function updateSchedule(\Illuminate\Http\Request $request)
+    {
+        /** @var Tutor $tutor */
+        $data = $request->all();
+        $tutor = auth()->user()->tutor;
+        if ($request->has('schedule')){
+            $schedule = $data['schedule'];
+            $scheduleData = [];
+            foreach ($schedule as $key => $c){
+                $scheduleData[$key] = $this->arrayToString($c);
+            }
+            $tutor->schedule()->delete();
+            $tutor->schedule()->create($scheduleData);
+        } else {
+            $tutor->schedule()->delete();
+        }
+        return back();
+    }
+
+    public function showTutorSchedule()
+    {
+        $this->middleware('auth');
+        /** @var Tutor $tutor */
+        $tutor = auth()->user()->tutor;
+        return view('tutor.schedule', compact('tutor'));
+    }
+
+    public function arrayToString($data)
+    {
+        return implode(',', $data);
+    }
 
     public function updateAuthInfo()
     {
@@ -302,6 +333,12 @@ class TutorController extends Controller
     {
         $tutor = auth()->user()->tutor;
         return view('tutor.appointment',compact('tutor'));
+    }
+
+    public function listStudent()
+    {
+        $tutor = auth()->user()->tutor;
+        return view('tutor.student',compact('tutor'));
     }
 
     public function deleteRequest()

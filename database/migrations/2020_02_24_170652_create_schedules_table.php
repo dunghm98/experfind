@@ -22,9 +22,14 @@ class CreateSchedulesTable extends Migration
             $table->string('fri')->default('');
             $table->string('sat')->default('');
             $table->string('sun')->default('');
-            $table->unsignedBigInteger('request_id');
+            $table->unsignedBigInteger('request_id')->nullable();
             $table->foreign('request_id')->references('id')
                 ->on('requests')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->unsignedInteger('tutor_id')->nullable();
+            $table->foreign('tutor_id')->references('id')
+                ->on('tutors')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();

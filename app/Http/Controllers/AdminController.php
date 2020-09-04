@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\City;
 use App\District;
 use App\Speciality;
+use App\Student;
 use App\Subject;
+use App\Tutor;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -203,4 +205,39 @@ class AdminController extends Controller
         return redirect(route('showSubjects'));
     }
 
+
+//    Tutor
+    public function showTutors()
+    {
+        $tutors = Tutor::all();
+        return view('admin.list.tutor', compact('tutors'));
+    }
+
+    public function viewTutor(Tutor $tutor)
+    {
+        return view('admin.view.tutor', compact('tutor'));
+    }
+
+    public function deleteTutor(Tutor $tutor)
+    {
+        $tutor = \App\Tutor::destroy($tutor->id);
+        return redirect(route('showTutors'));
+    }
+//    student
+    public function showStudents()
+    {
+        $students = Student::all();
+        return view('admin.list.student', compact('students'));
+    }
+
+    public function viewStudent(Student $student)
+    {
+        return view('admin.view.student', compact('student'));
+    }
+
+    public function deleteStudent(Student $student)
+    {
+        $student = \App\Student::destroy($student->id);
+        return redirect(route('showTutors'));
+    }
 }

@@ -173,6 +173,23 @@ class Tutor extends Model
         $this->requests()->detach($requestId);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function schedule()
+    {
+        return $this->hasOne(Schedule::class);
+    }
 
+
+    public function getStudentRequest(){
+        $listStudentRequets = [];
+        foreach($this->requests as $key => $studentRequest){
+            if ($studentRequest->pivot->status == 3){
+                $listStudentRequets[] = $studentRequest;
+            }
+        }
+        return $listStudentRequets;
+    }
 
 }

@@ -22,4 +22,11 @@ class City extends Model
     {
         return $this->hasMany(User::class);
     }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
 }

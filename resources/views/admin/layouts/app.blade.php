@@ -7,7 +7,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name', 'Laravel') }}</title>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
+        <link href="{{ asset('plugins/fontawesome/css/fontawesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('plugins/fontawesome/css/all.min.css') }}" rel="stylesheet">
 
         <!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
@@ -25,7 +26,10 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
-{{--        select2--}}
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('css/week-day-calendar.css')}}">
+
+        {{--        select2--}}
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
 
@@ -190,7 +194,7 @@
                                     <a href="{{route('showDashBoard')}}"><i class="fe fe-home"></i> <span>Dashboard</span></a>
                                 </li>
                                 <li class="{{ Request::path() == 'admin/cities' ? 'active' : '' }}" >
-                                    <a href="{{ route('showCities') }}"><i class="fe fe-layout"></i> <span>Thành Phố</span></a>
+                                    <a href="{{ route('showCities') }}"><i class="fe fe-layout"></i> <span>Thành phố</span></a>
                                 </li>
                                 <li class="{{ Request::path() == 'admin/districts' ? 'active' : '' }}">
                                     <a href="{{route('showDistricts')}}"><i class="fe fe-users"></i> <span>Quận huyện</span></a>
@@ -201,9 +205,12 @@
                                 <li class="{{ Request::path() == 'admin/subjects' ? 'active' : '' }}">
                                     <a href="{{route('showSubjects')}}"><i class="fe fe-user-plus"></i> <span>Môn học</span></a>
                                 </li>
-{{--                                <li class="{{ Request::path() == 'admin/users' ? 'active' : '' }}">--}}
-{{--                                    <a href="{{route('showUsers')}}"><i class="fe fe-user-plus"></i> <span>User</span></a>--}}
-{{--                                </li>--}}
+                                <li class="{{ Request::path() == 'admin/tutors' ? 'active' : '' }}">
+                                    <a href="{{route('showTutors')}}"><i class="fe fe-user-plus"></i> <span>Gia sư</span></a>
+                                </li>
+                                <li class="{{ Request::path() == 'admin/students' ? 'active' : '' }}">
+                                    <a href="{{route('showStudents')}}"><i class="fe fe-user-plus"></i> <span>Học sinh</span></a>
+                                </li>
                             </ul>
                         </div>
                     </div>

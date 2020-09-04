@@ -51,7 +51,7 @@
                                 <ul class="clearfix">
                                     <li>
                                         <span>Trạng thái: </span>
-                                        @if($request->status===1)
+                                        @if($request->status===0)
                                             <span class="badge badge-pill bg-info-light">Đang tìm</span>
                                         @endif
                                         @if($request->status===2)
@@ -80,12 +80,23 @@
                                     <li>
                                         <span>Tìm gia sư: </span>
                                         @if($request->type_of_tutor===1)
-                                            <span class="badge badge-pill bg-info-light">Nam</span>
+                                            <span class="badge badge-pill bg-info-light">Sinh viên</span>
                                         @endif
                                         @if($request->type_of_tutor===2)
-                                            <span class="badge badge-pill bg-success-light">Nữ</span>
+                                            <span class="badge badge-pill bg-success-light">Giáo viên</span>
                                         @endif
                                         @if($request->type_of_tutor===3)
+                                            <span class="badge badge-pill bg-info-light">Sinh viên,</span>
+                                            <span class="badge badge-pill bg-success-light">Giáo viên</span>
+                                        @endif
+{{--                                        gender--}}
+                                        @if($request->tutor_gender===1)
+                                            <span class="badge badge-pill bg-info-light">Nam</span>
+                                        @endif
+                                        @if($request->tutor_gender===2)
+                                            <span class="badge badge-pill bg-success-light">Nữ</span>
+                                        @endif
+                                        @if($request->tutor_gender===3)
                                             <span class="badge badge-pill bg-info-light">Nam,</span>
                                             <span class="badge badge-pill bg-success-light">Nữ</span>
                                         @endif
@@ -99,7 +110,12 @@
                         <div class="col-md-2">
                             @if (auth()->check())
                                 @can('view', auth()->user()->tutor)
-                                    <div class=" mb-3"><button tutor-data="{{auth()->user()->tutor->id ?? 0}}" id="ask-for-teach" request-data="{{$request->id}}" class="btn btn-primary">Nhận dạy</button></div>
+                                    @if($request->status !==3)
+                                        <div class=" mb-3"><button tutor-data="{{auth()->user()->tutor->id ?? 0}}" id="ask-for-teach" request-data="{{$request->id}}" class="btn btn-primary">Nhận dạy</button></div>
+                                    @else
+                                        <div class=" mb-3"><button class="btn btn-dark">Lớp đã được nhận</button></div>
+                                    @endif
+
                                 @endcan
                             @endif
                             <small>Đã có <span id="number-tutor-apply">{{count($request->tutors)}}</span>/5 yêu cầu dạy</small>
@@ -122,68 +138,134 @@
                                 <p>{{$request->description}}</p>
                             </div>
                             <!-- /About Details -->
+{{--{{dd($request->schedule->checkSchedule('mon','morning'))}}--}}
+{{--                        {{dd($request->schedule)}}--}}
 
-                            <!-- schedule Details -->
+                        <!-- schedule Details -->
                             <div class="widget education-widget">
                                 <h4 class="widget-title">Lịch học dự kiến</h4>
                                 <div class="row form-row justify-content-center">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <div class="weekday-calendar schedule">
+                                            <div class="weekday-calendar schedule view-only">
                                                 <div class="day-of-week mon">
                                                     <button type="button" value="mon" class="btn btn-secondary">Thứ 2</button>
                                                     <ul class="custom-checkbox">
-                                                        <li><input name="schedule[mon][]" type="checkbox" id="morning-2" value="morning"><label for="morning-2">Sáng</label></li>
-                                                        <li><input name="schedule[mon][]" type="checkbox" id="afternoon-2" value="afternoon" ><label for="afternoon-2">Chiều</label></li>
-                                                        <li><input name="schedule[mon][]" type="checkbox" id="evening-2" value="evening" ><label for="evening-2">Tối</label></li>
+                                                        <li>
+                                                            <input name="schedule[mon][]" type="checkbox" id="morning-2" value="morning"
+                                                                {{$request->schedule->checkSchedule('mon','morning')==true ? 'checked' : ''}}>
+                                                            <label for="morning-2">Sáng</label>
+                                                        </li>
+                                                        <li>
+                                                            <input name="schedule[mon][]" type="checkbox" id="afternoon-2" value="afternoon"
+                                                            {{$request->schedule->checkSchedule('mon','afternoon')==true ? 'checked' : ''}}>
+                                                            <label for="afternoon-2">Chiều</label></li>
+                                                        <li>
+                                                            <input name="schedule[mon][]" type="checkbox" id="evening-2" value="evening"
+                                                            {{$request->schedule->checkSchedule('mon','evening')==true ? 'checked' : ''}}>
+                                                            <label for="evening-2">Tối</label></li>
                                                     </ul>
                                                 </div>
                                                 <div class="day-of-week tue">
                                                     <button type="button" value="tue" class="btn btn-secondary">Thứ 3</button>
                                                     <ul class="custom-checkbox">
-                                                        <li><input name="schedule[tue][]" type="checkbox" id="morning-3" value="morning"><label for="morning-3">Sáng</label></li>
-                                                        <li><input name="schedule[tue][]" type="checkbox" id="afternoon-3" value="afternoon" ><label for="afternoon-3">Chiều</label></li>
-                                                        <li><input name="schedule[tue][]" type="checkbox" id="evening-3" value="evening" ><label for="evening-3">Tối</label></li>
+                                                        <li>
+                                                            <input name="schedule[tue][]" type="checkbox" id="morning-3" value="morning"
+                                                            {{$request->schedule->checkSchedule('tue','morning')==true ? 'checked' : ''}}>
+                                                            <label for="morning-3">Sáng</label></li>
+                                                        <li>
+                                                            <input name="schedule[tue][]" type="checkbox" id="afternoon-3" value="afternoon"
+                                                            {{$request->schedule->checkSchedule('tue','afternoon')==true ? 'checked' : ''}}>
+                                                            <label for="afternoon-3">Chiều</label></li>
+                                                        <li>
+                                                            <input name="schedule[tue][]" type="checkbox" id="evening-3" value="evening"
+                                                            {{$request->schedule->checkSchedule('tue','evening')==true ? 'checked' : ''}}>
+                                                            <label for="evening-3">Tối</label></li>
                                                     </ul>
                                                 </div>
                                                 <div class="day-of-week wed">
                                                     <button type="button" value="wed" class="btn btn-secondary">Thứ 4</button>
                                                     <ul class="custom-checkbox">
-                                                        <li><input name="schedule[wed][]" type="checkbox" id="morning-4" value="morning"><label for="morning-4">Sáng</label></li>
-                                                        <li><input name="schedule[wed][]" type="checkbox" id="afternoon-4" value="afternoon" ><label for="afternoon-4">Chiều</label></li>
-                                                        <li><input name="schedule[wed][]" type="checkbox" id="evening-4" value="evening" ><label for="evening-4">Tối</label></li>
+                                                        <li>
+                                                            <input name="schedule[wed][]" type="checkbox" id="morning-4" value="morning"
+                                                            {{$request->schedule->checkSchedule('wed','morning')==true ? 'checked' : ''}}>
+                                                            <label for="morning-4">Sáng</label></li>
+                                                        <li>
+                                                            <input name="schedule[wed][]" type="checkbox" id="afternoon-4" value="afternoon"
+                                                            {{$request->schedule->checkSchedule('wed','afternoon')==true ? 'checked' : ''}}>
+                                                            <label for="afternoon-4">Chiều</label></li>
+                                                        <li>
+                                                            <input name="schedule[wed][]" type="checkbox" id="evening-4" value="evening"
+                                                            {{$request->schedule->checkSchedule('wed','evening')==true ? 'checked' : ''}}>
+                                                            <label for="evening-4">Tối</label></li>
                                                     </ul>
                                                 </div>
                                                 <div class="day-of-week thur">
                                                     <button type="button" value="thur" class="btn btn-secondary">Thứ 5</button>
                                                     <ul class="custom-checkbox">
-                                                        <li><input name="schedule[thur][]" type="checkbox" id="morning-5" value="morning"><label for="morning-5">Sáng</label></li>
-                                                        <li><input name="schedule[thur][]" type="checkbox" id="afternoon-5" value="afternoon" ><label for="afternoon-5">Chiều</label></li>
-                                                        <li><input name="schedule[thur][]" type="checkbox" id="evening-5" value="evening" ><label for="evening-5">Tối</label></li>
+                                                        <li>
+                                                            <input name="schedule[thur][]" type="checkbox" id="morning-5" value="morning"
+                                                            {{$request->schedule->checkSchedule('thur','morning')==true ? 'checked' : ''}}>
+                                                            <label for="morning-5">Sáng</label></li>
+                                                        <li>
+                                                            <input name="schedule[thur][]" type="checkbox" id="afternoon-5" value="afternoon"
+                                                            {{$request->schedule->checkSchedule('thur','afternoon')==true ? 'checked' : ''}}>
+                                                            <label for="afternoon-5">Chiều</label></li>
+                                                        <li>
+                                                            <input name="schedule[thur][]" type="checkbox" id="evening-5" value="evening"
+                                                            {{$request->schedule->checkSchedule('thur','evening')==true ? 'checked' : ''}}>
+                                                            <label for="evening-5">Tối</label></li>
                                                     </ul>
                                                 </div>
                                                 <div class="day-of-week fri">
                                                     <button type="button" value="fri" class="btn btn-secondary">Thứ 6</button>
                                                     <ul class="custom-checkbox">
-                                                        <li><input name="schedule[fri][]" type="checkbox" id="morning-6" value="morning"><label for="morning-6">Sáng</label></li>
-                                                        <li><input name="schedule[fri][]" type="checkbox" id="afternoon-6" value="afternoon" ><label for="afternoon-6">Chiều</label></li>
-                                                        <li><input name="schedule[fri][]" type="checkbox" id="evening-6" value="evening" ><label for="evening-6">Tối</label></li>
+                                                        <li>
+                                                            <input name="schedule[fri][]" type="checkbox" id="morning-6" value="morning"
+                                                            {{$request->schedule->checkSchedule('fri','morning')==true ? 'checked' : ''}}>
+                                                            <label for="morning-6">Sáng</label></li>
+                                                        <li>
+                                                            <input name="schedule[fri][]" type="checkbox" id="afternoon-6" value="afternoon"
+                                                            {{$request->schedule->checkSchedule('fri','afternoon')==true ? 'checked' : ''}}>
+                                                            <label for="afternoon-6">Chiều</label></li>
+                                                        <li>
+                                                            <input name="schedule[fri][]" type="checkbox" id="evening-6" value="evening"
+                                                            {{$request->schedule->checkSchedule('fri','evening')==true ? 'checked' : ''}}>
+                                                            <label for="evening-6">Tối</label></li>
                                                     </ul>
                                                 </div>
                                                 <div class="day-of-week sat">
                                                     <button type="button" value="sat" class="btn btn-secondary">Thứ 7</button>
                                                     <ul class="custom-checkbox">
-                                                        <li><input name="schedule[sat][]" type="checkbox" id="morning-7" value="morning"><label for="morning-7">Sáng</label></li>
-                                                        <li><input name="schedule[sat][]" type="checkbox" id="afternoon-7" value="afternoon" ><label for="afternoon-7">Chiều</label></li>
-                                                        <li><input name="schedule[sat][]" type="checkbox" id="evening-7" value="evening" ><label for="evening-7">Tối</label></li>
+                                                        <li>
+                                                            <input name="schedule[sat][]" type="checkbox" id="morning-7" value="morning"
+                                                            {{$request->schedule->checkSchedule('sat','morning')==true ? 'checked' : ''}}>
+                                                            <label for="morning-7">Sáng</label></li>
+                                                        <li>
+                                                            <input name="schedule[sat][]" type="checkbox" id="afternoon-7" value="afternoon"
+                                                            {{$request->schedule->checkSchedule('sat','afternoon')==true ? 'checked' : ''}}>
+                                                            <label for="afternoon-7">Chiều</label></li>
+                                                        <li>
+                                                            <input name="schedule[sat][]" type="checkbox" id="evening-7" value="evening"
+                                                            {{$request->schedule->checkSchedule('sat','evening')==true ? 'checked' : ''}}>
+                                                            <label for="evening-7">Tối</label></li>
                                                     </ul>
                                                 </div>
                                                 <div class="day-of-week sun">
                                                     <button type="button" value="sun" class="btn btn-secondary">Chủ Nhật</button>
                                                     <ul class="custom-checkbox">
-                                                        <li><input name="schedule[sun][]" type="checkbox" id="morning-8" value="morning"><label for="morning-8">Sáng</label></li>
-                                                        <li><input name="schedule[sun][]" type="checkbox" id="afternoon-8" value="afternoon" ><label for="afternoon-8">Chiều</label></li>
-                                                        <li><input name="schedule[sun][]" type="checkbox" id="evening-8" value="evening" ><label for="evening-8">Tối</label></li>
+                                                        <li>
+                                                            <input name="schedule[sun][]" type="checkbox" id="morning-8" value="morning"
+                                                            {{$request->schedule->checkSchedule('sun','morning')==true ? 'checked' : ''}}>
+                                                            <label for="morning-8">Sáng</label></li>
+                                                        <li>
+                                                            <input name="schedule[sun][]" type="checkbox" id="afternoon-8" value="afternoon"
+                                                            {{$request->schedule->checkSchedule('sun','afternoon')==true ? 'checked' : ''}}>
+                                                            <label for="afternoon-8">Chiều</label></li>
+                                                        <li>
+                                                            <input name="schedule[sun][]" type="checkbox" id="evening-8" value="evening"
+                                                            {{$request->schedule->checkSchedule('sun','evening')==true ? 'checked' : ''}}>
+                                                            <label for="evening-8">Tối</label></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -199,8 +281,14 @@
 
                             <!-- Location Details -->
                             <div class="widget experience-widget">
-                                <h4 class="widget-title">Vị trí lớp học</h4>
-                                <div class="location"></div>
+                                <h4 class="widget-title">Địa chỉ học</h4>
+                                @if($request->learning_method == 2)
+                                    <div>Học online</div>
+                                @elseif($request->learning_method == 1)
+                                <div class="location">
+                                    {{$request->address ?? ''}}, {{$request->district->name ?? ''}}, {{$request->city->name ?? ''}}
+                                </div>
+                                @endif
                             </div>
                             <!-- /Location Details -->
 

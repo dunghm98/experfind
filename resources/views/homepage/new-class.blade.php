@@ -39,7 +39,7 @@
                                                     <img id="preview-avatar"
                                                          src="{{asset($request->student->user->avatar ? 'storage/'. $request->student->user->avatar : ($request->student->user->gender == 1 ? 'img/tutors/avatars/default-boy.png':'img/tutors/avatars/default-girl.png' ))}}" alt="User Avatar">
                                                 </a>
-                                                <a href="{{route('students.viewProfile',$request->student)}}">{{$request->student->user->name}}<span>{{$request->type_of_tutor}}</span></a>
+                                                <a href="{{route('students.viewProfile',$request->student)}}">{{$request->student->user->name}}</a>
                                             </h2>
                                         </td>
                                         <td>{{$request->short_description}}</td>

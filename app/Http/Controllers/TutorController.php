@@ -225,7 +225,7 @@ class TutorController extends Controller
         foreach ($subjects as $subject){
             $tutors = $tutors->merge($subject->tutors);
         }
-        $tutors = $tutors->unique();
+        $tutors = $tutors->unique('id');
         $specialities = Speciality::all();
         $cities = \App\City::all();
         $districts = \App\District::all();

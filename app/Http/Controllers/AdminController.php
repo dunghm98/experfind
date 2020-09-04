@@ -238,6 +238,6 @@ class AdminController extends Controller
     public function deleteStudent(Student $student)
     {
         $student = \App\Student::destroy($student->id);
-        return redirect(route('showTutors'));
+        return redirect(route('showStudents'));
     }
 }

@@ -20,11 +20,15 @@ class TutorController extends Controller
 
     const TUTOR =  1;
     const ACCEPT_REQUEST = 3;
+
     public function index()
     {
         /** @var User $tutors */
         $tutors = \App\Tutor::all();
-        return view('search', compact('tutors'));
+        $specialities = Speciality::all();
+        $cities = \App\City::all();
+        $districts = \App\District::all();
+        return view('search', compact('tutors', 'specialities', 'cities', 'districts'));
     }
 
     public function showProfile()
@@ -222,7 +226,10 @@ class TutorController extends Controller
             $tutors = $tutors->merge($subject->tutors);
         }
         $tutors = $tutors->unique();
-        return view('search', compact('tutors','speciality'));
+        $specialities = Speciality::all();
+        $cities = \App\City::all();
+        $districts = \App\District::all();
+        return view('search', compact('tutors', 'specialities', 'cities', 'districts', 'speciality'));
     }
 
     public function askForTeach()

@@ -22,46 +22,6 @@
                     </a>
                     <!-- /Slider Item -->
                     @endforeach
-                    <!-- Slider Item -->
-                    <div class="speicality-item text-center">
-                        <div class="speicality-img">
-                            <img src="{{asset('img/van-hoc.png')}}" class="img-fluid" alt="Speciality">
-                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                        </div>
-                        <p>Khoa Học Xã Hộ i</p>
-                    </div>
-                    <!-- /Slider Item -->
-
-                    <!-- Slider Item -->
-                    <div class="speicality-item text-center">
-                        <div class="speicality-img">
-                            <img src="{{asset('img/hoi-hoa.png')}}" class="img-fluid" alt="Speciality">
-                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                        </div>
-                        <p>Nghệ Thuật</p>
-                    </div>
-                    <!-- /Slider Item -->
-
-                    <!-- Slider Item -->
-                    <div class="speicality-item text-center">
-                        <div class="speicality-img">
-                            <img src="{{asset('img/the-thao.png')}}" class="img-fluid" alt="Speciality">
-                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                        </div>
-                        <p>Thể Thao</p>
-                    </div>
-                    <!-- /Slider Item -->
-
-                    <!-- Slider Item -->
-                    <div class="speicality-item text-center">
-                        <div class="speicality-img">
-                            <img src="{{asset('img/am-nhac.png')}}" class="img-fluid" alt="Speciality">
-                            <span><i class="fa fa-circle" aria-hidden="true"></i></span>
-                        </div>
-                        <p>Âm Nhạc</p>
-                    </div>
-                    <!-- /Slider Item -->
-
                 </div>
                 <!-- /Slider -->
 

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('bottom.js')
     <script src="{{ asset('js/dialog-box.js') }}"></script>
+    <script src="{{ asset('js/tag-search.js') }}"></script>
 @endsection
 
 @section('content')

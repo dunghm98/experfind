@@ -51,7 +51,7 @@
 
                                         <td class="text-right">
                                             <div class="actions">
-                                                <a class="btn btn-sm bg-success-light" href="{{route('viewStudent', $student->id)}}">
+                                                <a class="btn btn-sm bg-success-light" href="#">
                                                     <i class="fe fe-pencil"></i> Xem chi tiết
                                                 </a>
                                                 <a  href="/admin/student/delete/{{$student->id}}" class="btn btn-sm bg-danger-light">

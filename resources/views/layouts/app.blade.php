@@ -71,11 +71,11 @@
                         </a>
                     </div>
                     <ul class="main-nav">
-                        <li class="active">
+                        <li class="{{ Request::path() == '/' ? 'active' : '' }}">
                             <a href="/">Trang Chủ</a>
                         </li>
-                        <li class="has-submenu">
-                            <a href="#">Gia Sư <i class="fas fa-chevron-down"></i></a>
+                        <li class="has-submenu {{ Request::path() == 'search' ||  Request::route()->getName() == 'tutor-profile' ? 'active' : '' }}" >
+                            <a href="{{route('list-tutor')}}">Gia Sư <i class="fas fa-chevron-down"></i></a>
                             <ul class="submenu">
                                 <li><a href="{{route('list-tutor')}}">Danh sách gia sư</a></li>
                                 @if (auth()->check())
@@ -85,8 +85,8 @@
                                 @endif
                             </ul>
                         </li>
-                        <li class="has-submenu">
-                            <a href="#">Học sinh<i class="fas fa-chevron-down"></i></a>
+                        <li class="has-submenu {{ Request::route()->getName() == 'request.list' || Request::route()->getName() == 'request.detail' ? 'active' : '' }}">
+                            <a href="{{ route('request.list') }}">Học sinh<i class="fas fa-chevron-down"></i></a>
                             <ul class="submenu">
                                 <li><a href="{{ route('request.list') }}">Lớp mới đang tìm gia sư</a></li>
                                 @if (auth()->check())
@@ -98,7 +98,9 @@
                         </li>
                         @if (auth()->check())
                             @can('view', auth()->user()->student)
-                                <li><a href="{{route('request.create')}}" >Đăng yêu cầu tìm gia sư</a></li>
+                                <li class="has-submenu {{Request::route()->getName() == 'request.create' ? 'active' : '' }}">
+                                    <a href="{{route('request.create')}}" >Đăng yêu cầu tìm gia sư</a>
+                                </li>
                             @endcan
                         @endif
 
@@ -107,11 +109,10 @@
                 <ul class="nav header-navbar-rht">
                     <li class="nav-item contact-item">
                         <div class="header-contact-img">
-                            <i class="far fa-hospital"></i>
+                            <i class="fa fa-book-reader"></i>
                         </div>
                         <div class="header-contact-detail">
-                            <p class="contact-header">Contact</p>
-                            <p class="contact-info-header"> +1 315 369 5943</p>
+{{--                            <p class="contact-header">Hi</p>--}}
                         </div>
                     </li>
 
@@ -158,18 +159,18 @@
                                 </div>
                                 @can('view', auth()->user()->student)
                                     <a class="dropdown-item" href="{{ route('student.dashboard') }}">Dashboard</a>
-                                    <a class="dropdown-item" href="{{ route('students.getProfile') }}">Profile Settings</a>
+                                    <a class="dropdown-item" href="{{ route('students.getProfile') }}">Trang cá nhân</a>
                                 @endcan
                                 @can('view', auth()->user()->tutor)
                                     <a class="dropdown-item" href="{{ route('tutor.dashboard') }}">Dashboard</a>
-                                    <a class="dropdown-item" href="{{ route('tutor.showProfile') }}">Profile Settings</a>
+                                    <a class="dropdown-item" href="{{ route('tutor.showProfile') }}">Trang cá nhân</a>
                                 @endcan
 
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Đăng xuất') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf

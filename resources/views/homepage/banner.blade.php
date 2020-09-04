@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="banner-wrapper">
             <div class="banner-header text-center">
-                <h1>Tìm Gia Sư, Book Lịch Học</h1>
+                <h1>Tìm Gia Sư</h1>
                 <p>Khám phá những gia sư giỏi nhất, thích hợp và gần bạn nhất.</p>
             </div>
 

@@ -50,7 +50,7 @@
                                     <i class="fas fa-map-marker-alt"></i> {{$tutor->user->district->name ?? ''}}, {{$tutor->user->city->name ?? ''}}
                                 </li>
                                 <li>
-                                    <i class="far fa-user"></i> {{$tutor->type_of_tutor == 1 ? 'Sinh viên' : 'Giáo viên'}}
+                                    <i class="far fa-user"></i> {{$tutor->type_of_tutor == 0 ? 'Sinh viên' : 'Giáo viên'}}
                                 </li>
                                 <li>
                                     <i class="far fa-money-bill-alt"></i>{{$tutor->tuition_fee ?? 'Dạy miễn phí'}} vnđ

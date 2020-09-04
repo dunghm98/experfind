@@ -16,7 +16,7 @@
                             <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
                         </ol>
                     </nav>
-                    <h2 class="breadcrumb-title">Đăng yêu cầu tìm gia s</h2>
+                    <h2 class="breadcrumb-title">Đăng yêu cầu tìm gia sư</h2>
                 </div>
             </div>
         </div>
@@ -285,7 +285,7 @@
                                             <label>Kiểu gia sư</label>
                                             <div id="type-of-tutor">
                                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input name="type_of_tutor[student]" value="1" type="checkbox" class="custom-control-input checkbox" id="sinhvien">
+                                                    <input name="type_of_tutor[student]" value="0" type="checkbox" class="custom-control-input checkbox" id="sinhvien">
                                                     <label class="custom-control-label" for="sinhvien">Sinh viên</label>
                                                 </div>
                                                 <div class="custom-control custom-checkbox custom-control-inline">

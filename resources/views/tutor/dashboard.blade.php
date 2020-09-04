@@ -71,19 +71,19 @@
                                         </a>
                                     </li>
                                     <li class="{{ Request::path() == 'tutor/transaction' ? 'active' : '' }}">
-                                        <a href="/tutor/transaction">
+                                        <a href="#">
                                             <i class="fas fa-file-invoice"></i>
                                             <span>Hóa đơn</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::path() == 'tutor/review' ? 'active' : '' }}">
-                                        <a href="/tutor/review">
+                                        <a href="#">
                                             <i class="fas fa-star"></i>
                                             <span>Đánh giá</span>
                                         </a>
                                     </li>
                                     <li class="{{ Request::path() == 'tutor/message' ? 'active' : '' }}">
-                                        <a href="/tutor/message">
+                                        <a href="#">
                                             <i class="fas fa-comments"></i>
                                             <span>Tin nhắn</span>
                                             <small class="unread-msg">23</small>

@@ -40,7 +40,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/student/message">
+                                        <a href="#">
                                             <i class="fas fa-comments"></i>
                                             <span>Tin nhắn</span>
                                             <small class="unread-msg">23</small>

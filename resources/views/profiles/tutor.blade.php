@@ -43,7 +43,7 @@
                                         }
                                     ?>
                                 <p class="doc-speciality">Gia sư {{isset($subjectArray) ? implode(", ",$subjectArray) : ''}}</p>
-                                <p class="doc-department"><img src="{{asset('img/specialities/teacher.png')}}" class="img-fluid" alt="Speciality">{{$tutor->type_of_tutor == 1 ? 'Sinh viên' : 'Giáo viên'}}</p>
+                                <p class="doc-department"><img src="{{asset('img/specialities/teacher.png')}}" class="img-fluid" alt="Speciality">{{$tutor->type_of_tutor == 0 ? 'Sinh viên' : 'Giáo viên'}}</p>
                                 <div class="rating">
                                     <i class="fas fa-star filled"></i>
                                     <i class="fas fa-star filled"></i>

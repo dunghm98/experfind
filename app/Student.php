@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    const TYPE_STUDENT = 1;
-    const TYPE_TEACHER = 2;
+    const TYPE_STUDENT = 0;
+    const TYPE_TEACHER = 1;
     const TYPE_BOTH = 3;
     const GENDER_MALE = 1;
-    const GENDER_FEMALE = 2;
+    const GENDER_FEMALE = 0;
     const GENDER_BOTH = 3;
     const HOME_LEARNING = 1;
     const ONLINE_LEARNING = 2;

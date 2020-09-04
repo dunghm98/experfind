@@ -1,6 +1,7 @@
 <?php /** @var \App\User $users */ ?>
 @section('bottom.js')
     <script src="{{ asset('js/dialog-box.js') }}"></script>
+    <script src="{{ asset('js/student/profile.js') }}"></script>
 @endsection
 
 @extends('layouts.app')
@@ -14,18 +15,18 @@
                 <div class="col-md-8 col-12">
                     <nav aria-label="breadcrumb" class="page-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Search</li>
+                            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Tìm kiếm gia sư</li>
                         </ol>
                     </nav>
-                    <h2 class="breadcrumb-title">{{$count ?? ''}} kết quả cho : {{$filterString ?? ''}}</h2>
+                    <h2 class="breadcrumb-title">{{$count ?? ''}} kết quả cho : {{$filterString ?? ''}} {{ $speciality->name ?? '' }}</h2>
                 </div>
                 <div class="col-md-4 col-12 d-md-block d-none">
                     <div class="sort-by">
                         <span class="sort-title">Sắp Xếp Theo</span>
                         <span class="sortby-fliter">
 									<select class="select">
-										<option>Select</option>
+										<option>Chọn</option>
 										<option class="sorting">Xếp hạng</option>
 										<option class="sorting">Phổ biến</option>
 										<option class="sorting">Mới nhất</option>
@@ -46,70 +47,115 @@
             <div class="row">
                 <div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
 
+                    <form action="{{ route('tutor.searchFilter') }}" method="post" id="form" enctype="multipart/form-data">
+                    @csrf
                     <!-- Search Filter -->
                     <div class="card search-filter">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Tìm kiếm</h4>
+                            <h4 class="card-title mb-0">Tìm kiếm theo bộ lọc</h4>
                         </div>
                         <div class="card-body">
+                            <!-- cate level1  -->
                             <div class="filter-widget">
-                                <h4>Giới tính</h4>
-                                <div>
-                                    <label class="custom_check">
-                                        <input type="checkbox" name="gender_type" checked>
-                                        <span class="checkmark"></span>Nam
-                                    </label>
-                                </div>
-                                <div>
-                                    <label class="custom_check">
-                                        <input type="checkbox" name="gender_type">
-                                        <span class="checkmark"></span>Nữ
-                                    </label>
+                                <h4 class="choose">Chọn môn học</h4>
+                                    <div class="form-group">
+                                        <select name="subject" id="subject" class="form-control select">
+                                            <option value="">Lựa chọn</option>
+                                            @foreach($specialities as $speciality)
+                                                <optgroup label="{{$speciality->name}}">
+                                                    @foreach($speciality->subjects as $subject)
+                                                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                                    @endforeach
+                                                </optgroup>]
+                                            @endforeach
+                                        </select>
+                                        @error('subject')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                            </div>
+                            <!--  -->
+                            <!-- cate level1  -->
+                            <div class="filter-widget">
+                                <h4 class="choose">Chọn thành phố</h4>
+                                <div class="form-group">
+                                    <select id="city" name="city" class="form-control select">
+                                        <option value="">Lựa chọn...</option>
+                                        @foreach($cities as  $city)
+                                            <option value="{{$city->id}}"> {{$city->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('city')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
-
+                            <!--  -->
+                            <!-- cate level1  -->
+                            <div class="filter-widget">
+                                <h4 class="choose">Chọn quận huyện</h4>
+                                <div class="form-group">
+                                    <select  name="district" id="district" class="form-control select">
+                                    </select>
+                                    @error('district')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!--  -->
 
                             <!-- cate level1  -->
-                            <div>
-                                <span class="choose">Chọn môn học</span>
-                                <div class="form-group">
-                                    <select class="form-control select">
-                                        <option value="khtn">Khoa Học Tự Nhiên</option>
-                                        <option value="khxh">Khoa Học Xã Hội</option>
-                                        <option value="nt">Nghệ Thuật</option>
-                                        <option value="tt">Âm Nhạc</option>
-                                    </select>
+                            <div class="filter-widget">
+                                <h4 class="choose">Giới tính gia sư</h4>
+                                <div class="form-group" >
+                                    <div id="type-of-tutor">
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input name="tutor_gender[male]" value="1" type="checkbox" class="custom-control-input checkbox" id="male-tutor" >
+                                            <label class="custom-control-label" for="male-tutor">Nam</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input name="tutor_gender[female]" value="1" type="checkbox" class="custom-control-input checkbox"  id="female-tutor" >
+                                            <label class="custom-control-label" for="female-tutor">Nữ</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!--  -->
 
-                            <!-- cate level 2  -->
-                            <div class="mt-3">
-                                <span class="choose">Chọn chủ đề</span>
-                                <div class="form-group">
-                                    <select class="form-control select">
-                                        <option value="khtn">Khoa Học Tự Nhiên</option>
-                                        <option value="khxh">Khoa Học Xã Hội</option>
-                                        <option value="nt">Nghệ Thuật</option>
-                                        <option value="tt">Âm Nhạc</option>
-                                    </select>
+                            <!-- cate level1  -->
+                            <div class="filter-widget">
+                                <h4 class="choose">Kiểu gia sư</h4>
+                                <div class="form-group" >
+                                    <div id="type-of-tutor">
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input name="type_of_tutor[student]" value="0" type="checkbox" class="custom-control-input checkbox" id="sinhvien">
+                                            <label class="custom-control-label" for="sinhvien">Sinh viên</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input name="type_of_tutor[teacher]" value="1" type="checkbox" class="custom-control-input checkbox"  id="giaovien">
+                                            <label class="custom-control-label" for="giaovien">Giáo viên</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!--  -->
+                            <div class="col-md-6">
 
+                            </div>
                             <div class="btn-search mt-3">
-                                <button type="button" class="btn btn-block">Search</button>
+                                <button type="submit" class="btn btn-block">Tìm</button>
                             </div>
                         </div>
                     </div>
                     <!-- /Search Filter -->
+                    </form>
 
                 </div>
 
                 <div class="col-md-12 col-lg-8 col-xl-9">
 {{--    @dd($tutors)--}}
                     <div class="row justify-content-center">
-                        @foreach($tutors as $tutor)
+                        @forelse($tutors as $tutor)
 {{--                            @dd($tutor->user->name)--}}
                         <!-- Tutor Widget -->
                         <div class="col-xl-6 col-lg-10 col-md-11">
@@ -125,7 +171,7 @@
                                             <div class="doc-info-cont">
                                                 <h4 class="doc-name" tutor-data="{{$tutor->id}}"><a href="{{route('tutor-profile',$tutor->id)}}">{{ $tutor->user->name }}</a></h4>
                                                 <h5 class="doc-department"><img src="{{asset($tutor->user->avatar ? 'storage/'. $tutor->user->avatar : ($tutor->user->gender == 1 ? 'img/tutors/avatars/default-boy.png':'img/tutors/avatars/default-girl.png' ))}}" class="img-fluid" alt="Speciality">
-                                                    {{$tutor->type_of_tutor == 1 ? 'Sinh viên' : 'Giáo viên'}}
+                                                    {{$tutor->type_of_tutor == 0 ? 'Sinh viên' : 'Giáo viên'}}
                                                 </h5>
                                                 <div class="rating">
                                                     <i class="fas fa-star filled"></i>
@@ -166,12 +212,14 @@
                             </div>
                         </div>
                         <!-- /Tutor Widget -->
-                        @endforeach
+                            @empty
+                            <p>Xin lỗi bạn, tạm thời chưa có gia sư nào phù hợp với yêu cầu rồi!</p>
+                            @endforelse
                     </div>
 
-                    <div class="load-more text-center">
-                        <a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>
-                    </div>
+{{--                    <div class="load-more text-center">--}}
+{{--                        <a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>--}}
+{{--                    </div>--}}
                 </div>
             </div>
 

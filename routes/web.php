@@ -122,6 +122,8 @@ Route::get('/request-for-tutor/', 'RequestController@create')
 Route::patch('/request-for-tutor/', 'RequestController@store')->name('request.store');
 
 Route::get('/list-request-for-tutor/', 'RequestController@listRequest')->name('request.list');
+Route::post('/filter-request-for-tutor/', 'RequestController@filterRequest')->name('request.filter');
+Route::get('/list-request-for-tutor-by-tag/', 'RequestController@listRequestByTag')->name('request.tagSearch');
 
 Route::get('/detail-request-for-tutor/{request}', 'RequestController@showRequest')->name('request.detail');
 
@@ -152,9 +154,10 @@ Route::get('specialities/get-list', 'SpecialityController@getList')
 
 /** Search Controller */
 
-Route::post('/suggest-search', 'SeachController@searchFullText')->name('search');
+Route::get('/suggest-search', 'SearchController@searchFullText')->name('search');
 Route::get('/search/tutor/location/{location}/subject/{subject}','SeachController@searchTutor')->name('search.tutor');
 Route::get('/filter-search', 'SearchController@filterByLocation')->name('home.search');
+Route::post('/tutor-filter-search', 'SearchController@tutorFilter')->name('tutor.searchFilter');
 
 
 

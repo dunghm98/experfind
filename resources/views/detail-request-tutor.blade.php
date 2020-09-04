@@ -16,7 +16,7 @@
                             <li class="breadcrumb-item active" aria-current="page">Profile Settings</li>
                         </ol>
                     </nav>
-                    <h2 class="breadcrumb-title">Đăng yêu cầu tìm gia s</h2>
+                    <h2 class="breadcrumb-title">Đăng yêu cầu tìm gia sư</h2>
                 </div>
             </div>
         </div>
@@ -79,10 +79,10 @@
                                     </li>
                                     <li>
                                         <span>Tìm gia sư: </span>
-                                        @if($request->type_of_tutor===1)
+                                        @if($request->type_of_tutor===0)
                                             <span class="badge badge-pill bg-info-light">Sinh viên</span>
                                         @endif
-                                        @if($request->type_of_tutor===2)
+                                        @if($request->type_of_tutor===1)
                                             <span class="badge badge-pill bg-success-light">Giáo viên</span>
                                         @endif
                                         @if($request->type_of_tutor===3)

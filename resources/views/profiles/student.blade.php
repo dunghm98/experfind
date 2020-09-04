@@ -188,7 +188,7 @@
                                                                                             <a href="{{route('tutor-profile',$tutorApply->id)}}" class="avatar avatar-sm mr-2">
                                                                                                 <img class="avatar-img rounded-circle" src="{{asset($tutorApply->user->avatar ? 'storage/'. $tutorApply->user->avatar : ($tutorApply->user->gender == 1 ? 'img/tutors/avatars/default-boy.png':'img/tutors/avatars/default-girl.png' ))}}" alt="User Image">
                                                                                             </a>
-                                                                                            <a href="{{route('tutor-profile',$tutorApply->id)}}">{{$tutorApply->user->name}} <span>{{$tutorApply->type_of_tutor == 1 ? 'Sinh viên' : 'Giáo viên'}}</span></a>
+                                                                                            <a href="{{route('tutor-profile',$tutorApply->id)}}">{{$tutorApply->user->name}} <span>{{$tutorApply->type_of_tutor == 0 ? 'Sinh viên' : 'Giáo viên'}}</span></a>
                                                                                         </h2>
                                                                                     </td>
                                                                                     <td>

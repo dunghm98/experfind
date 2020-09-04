@@ -86,7 +86,6 @@
                             <select name="type_of_tutor" class="form-control select">
                                 <option {{ (int)old('type_of_tutor', $tutor->type_of_tutor) === 0 ? 'selected' : '' }} value="0">Sinh viên</option>
                                 <option {{ (int)old('type_of_tutor', $tutor->type_of_tutor) === 1 ? 'selected' : '' }} value="1">Giáo viên</option>
-                                <option {{ (int)old('type_of_tutor', $tutor->type_of_tutor) === 2 ? 'selected' : '' }} value="2">Người đi làm</option>
                             </select>
 
                         </div>

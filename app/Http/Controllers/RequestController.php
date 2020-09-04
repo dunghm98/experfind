@@ -128,7 +128,7 @@ class RequestController extends Controller
             $this->subjectName = Subject::find($subjectId)->name;
             $query->where('subjects.id','=', $subjectId);
         }
-        $requestIds = $query->get()->unique()->toArray();
+        $requestIds = $query->get()->unique('id')->toArray();
         $requests = [];
         foreach ($requestIds as $id){
             $requests[] = \App\Request::find($id->id);
@@ -155,7 +155,7 @@ class RequestController extends Controller
             $query->where('requests.short_description','like', '%' . $tag .  '%')
                 ->orWhere('requests.description','like', '%' . $tag .  '%');
         }
-        $requestIds = $query->get()->unique()->toArray();
+        $requestIds = $query->get()->unique('id')->toArray();
         $requests = [];
         foreach ($requestIds as $id){
             $requests[] = \App\Request::find($id->id);

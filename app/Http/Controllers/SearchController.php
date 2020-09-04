@@ -55,7 +55,7 @@ class SearchController extends Controller
             ->orWhere('specialities.name','like', '%' . $subject .  '%');
         }
 
-        $userIds = $query->get()->unique()->toArray();
+        $userIds = $query->get()->unique('id')->toArray();
         $tutors = [];
         foreach ($userIds as $id){
             $tutors[] = Tutor::find($id->id);
@@ -110,7 +110,7 @@ class SearchController extends Controller
             }
         }
 
-        $userIds = $query->get()->unique()->toArray();
+        $userIds = $query->get()->unique('id')->toArray();
         $tutors = [];
         foreach ($userIds as $id){
             $tutors[] = Tutor::find($id->id);
